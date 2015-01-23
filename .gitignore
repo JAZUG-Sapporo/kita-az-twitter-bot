@@ -1,0 +1,8 @@
+*.user
+*.suo
+bin/
+obj/
+packages/
+testresults/
+App_Data/
+custom.appSettings.config
