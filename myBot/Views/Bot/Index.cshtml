@@ -1,7 +1,51 @@
-﻿
+﻿@model IEnumerable<myBot.Models.Bot>
+
 @{
     ViewBag.Title = "Bots";
 }
 
 <h2>@ViewBag.Title</h2>
 
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Enabled)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BeginTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duration)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Enabled)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BeginTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duration)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.BotID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.BotID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.BotID })
+        </td>
+    </tr>
+}
+
+</table>

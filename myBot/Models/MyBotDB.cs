@@ -8,5 +8,8 @@ namespace myBot.Models
 {
     public class MyBotDB : DbContext
     {
+        public DbSet<Bot> Bots { get; set; }
+
+        public DbSet<BotMaster> BotMasters { get; set; }
     }
 }

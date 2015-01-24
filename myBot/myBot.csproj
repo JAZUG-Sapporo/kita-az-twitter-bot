@@ -184,6 +184,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Bot.cs" />
+    <Compile Include="Models\BotMaster.cs" />
     <Compile Include="Models\MyBotDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
