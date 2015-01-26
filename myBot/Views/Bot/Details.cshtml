@@ -67,7 +67,32 @@
 
     </dl>
 </div>
+
+<hr />
+<h4>Tweet as the Bot</h4>
+<form id="tweet-as-the-bot-form" action="@Url.Action("TweetAsTheBot", new { id = Model.BotID })" method="post">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="text" class="control-label col-md-2">Text</label>
+            <div class="col-md-10">
+                <textarea name="text" class="form-control"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="tweet" type="submit" value="Tweet" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.BotID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+@section scripts{
+    <script src="~/Scripts/jquery.form.min.js"></script>
+    <script src="~/Views/Bot/tweet-as-the-bot.js"></script>
+}

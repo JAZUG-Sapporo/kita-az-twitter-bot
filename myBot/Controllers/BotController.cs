@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Twitter;
 using myBot.Code;
 using myBot.Models;
+using Newtonsoft.Json;
 
 namespace myBot.Controllers
 {
@@ -131,6 +133,24 @@ namespace myBot.Controllers
             {
                 return View();
             }
+        }
+
+        [HttpPost]
+        public ActionResult TweetAsTheBot(string id, string text)
+        {
+            var masterID = this.User.Identity.Name;
+            var bot = this.DB.Bots
+                .FirstOrDefault(b => b.BotMasters.Any(master => master.MasterID == masterID));
+            if (bot == null) return HttpNotFound();
+
+            var twitterAuthOpt = JsonConvert.DeserializeObject<TwitterAuthenticationOptions>(AppSettings.Key.Twitter);
+            var token = CoreTweet.Tokens.Create(
+                twitterAuthOpt.ConsumerKey,
+                twitterAuthOpt.ConsumerSecret,
+                bot.AccessToken, bot.AccessTokenSecret);
+            token.Statuses.Update(status => text);
+            
+            return new EmptyResult();
         }
     }
 }
