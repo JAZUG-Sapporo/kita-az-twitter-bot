@@ -70,11 +70,47 @@ namespace myBot {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure to disabling this bot?.
+        /// </summary>
+        public static string AreYouSureToDisablingThisBot {
+            get {
+                return ResourceManager.GetString("AreYouSureToDisablingThisBot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure to enabling this bot?.
+        /// </summary>
+        public static string AreYouSureToEnablingThisBot {
+            get {
+                return ResourceManager.GetString("AreYouSureToEnablingThisBot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change tweet timing.
         /// </summary>
         public static string ChangeTweetTiming {
             get {
                 return ResourceManager.GetString("ChangeTweetTiming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabled.
+        /// </summary>
+        public static string Disabled {
+            get {
+                return ResourceManager.GetString("Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enabled.
+        /// </summary>
+        public static string Enabled {
+            get {
+                return ResourceManager.GetString("Enabled", resourceCulture);
             }
         }
         

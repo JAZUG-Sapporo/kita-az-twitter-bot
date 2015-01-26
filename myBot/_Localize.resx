@@ -120,8 +120,20 @@
   <data name="AppTitle" xml:space="preserve">
     <value>myBot</value>
   </data>
+  <data name="AreYouSureToDisablingThisBot" xml:space="preserve">
+    <value>Are you sure to disabling this bot?</value>
+  </data>
+  <data name="AreYouSureToEnablingThisBot" xml:space="preserve">
+    <value>Are you sure to enabling this bot?</value>
+  </data>
   <data name="ChangeTweetTiming" xml:space="preserve">
     <value>Change tweet timing</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Enabled</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>Minutes</value>

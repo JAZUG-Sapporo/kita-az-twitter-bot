@@ -6,15 +6,18 @@
 
 <h2>@Model.BotID</h2>
 
-<dl class="dl-horizontal">
-
-    <dt>
-        @Html.DisplayNameFor(model => model.Enabled)
-    </dt>
-    <dd>
-        @Html.DisplayFor(model => model.Enabled)
-    </dd>
-</dl>
+<form id="bot-status-holder" action="@Url.Action("ChangeEnable", new { id = Model.BotID })" class="bot-enabled-@Model.Enabled.ToString().ToLower()">
+    <div class="bot-disabled">
+        <button id="btn-make-enable" class="btn btn-danger btn-block" data-confirm="@_Localize.AreYouSureToEnablingThisBot">
+            @_Localize.Disabled
+        </button>
+    </div>
+    <div class="bot-enabled">
+        <button id="btn-make-disable" class="btn btn-primary btn-block" data-confirm="@_Localize.AreYouSureToDisablingThisBot">
+            @_Localize.Enabled
+        </button>
+    </div>
+</form>
 
 <hr />
 
@@ -78,4 +81,5 @@
 @section scripts{
     <script src="~/Scripts/jquery.form.min.js"></script>
     <script src="~/Views/Bot/tweet-as-the-bot.js"></script>
+    <script src="~/Views/Bot/change-enable.js"></script>
 }

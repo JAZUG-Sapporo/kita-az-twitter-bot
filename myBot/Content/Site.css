@@ -37,3 +37,9 @@ textarea {
 .home-page.jumbotron .btn {
     width: 100%;
 }
+
+/* ---- Bot/Detail ---- */
+.bot-enabled-true .bot-disabled,
+.bot-enabled-false .bot-enabled {
+    display: none;
+}

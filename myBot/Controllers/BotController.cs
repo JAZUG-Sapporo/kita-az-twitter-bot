@@ -88,6 +88,15 @@ namespace myBot.Controllers
             return RedirectToAction("Details", "Bot", new { id = botID });
         }
 
+        [HttpPost]
+        public async Task<ActionResult> ChangeEnable(string id, bool enabled)
+        {
+            var bot = GetBot(id);
+            if (bot == null) return HttpNotFound();
+            bot.Enabled = enabled;
+            await this.DB.SaveChangesAsync();
+            return new EmptyResult();
+        }
 
         // GET: Bot/Edit/foo
         public ActionResult Edit(string id)

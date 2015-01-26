@@ -223,6 +223,7 @@
     </Content>
     <Content Include="Scripts\jquery.form.js" />
     <Content Include="Scripts\jquery.form.min.js" />
+    <Content Include="Views\Bot\change-enable.js" />
     <Content Include="Views\Bot\Create.cshtml" />
     <Content Include="Views\Bot\Details.cshtml" />
     <Content Include="Scripts\jquery.form.min.js.map" />
@@ -301,6 +302,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\typings\jquery.form\jquery.form.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="Views\Bot\change-enable.ts" />
     <TypeScriptCompile Include="Views\Bot\tweet-as-the-bot.ts" />
   </ItemGroup>
   <PropertyGroup>
