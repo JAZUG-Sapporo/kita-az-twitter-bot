@@ -1,0 +1,9 @@
+﻿@model string
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@{
+    var value = ViewData.TemplateInfo.FormattedModelValue.ToString();
+    var timeZone = TimeZoneInfo.GetSystemTimeZones()
+        .FirstOrDefault(t => t.Id == value);
+}
+<text>@(timeZone != null ? timeZone.DisplayName : value)</text>

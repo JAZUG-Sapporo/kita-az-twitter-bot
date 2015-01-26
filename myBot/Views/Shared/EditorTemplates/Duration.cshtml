@@ -1,0 +1,16 @@
+﻿@model int
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@{
+    var selectList = new SelectList(
+        items: new[] { 45, 60, 75, 90, 105, 120 },
+        selectedValue: Model);
+    
+    var id = ViewData.TemplateInfo.GetFullHtmlFieldId("");
+    var validationAttributes = Html.GetUnobtrusiveValidationAttributes("");
+    var attributes = new RouteValueDictionary(validationAttributes)
+    {
+        { "id", id },
+    };
+}
+@Html.DropDownList("", selectList, attributes)

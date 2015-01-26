@@ -1,0 +1,19 @@
+﻿@model string
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@{
+    var id = ViewData.TemplateInfo.GetFullHtmlFieldId("");
+    var value = ViewData.TemplateInfo.FormattedModelValue.ToString();
+    var validationAttributes = Html.GetUnobtrusiveValidationAttributes("");
+    var attributes = new RouteValueDictionary(validationAttributes)
+    {
+        { "id", id },
+    };
+
+    var timeZones = TimeZoneInfo.GetSystemTimeZones();
+    var selectList = new SelectList(timeZones,
+        dataValueField: "Id",
+        dataTextField: "DisplayName",
+        selectedValue: value);
+}
+@Html.DropDownList("", selectList, attributes)

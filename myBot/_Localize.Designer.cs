@@ -70,6 +70,24 @@ namespace myBot {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change tweet timing.
+        /// </summary>
+        public static string ChangeTweetTiming {
+            get {
+                return ResourceManager.GetString("ChangeTweetTiming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minutes.
+        /// </summary>
+        public static string Minutes {
+            get {
+                return ResourceManager.GetString("Minutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign in with your Twitter account (not Bot account).
         /// </summary>
         public static string Sign_in_with_Twitter {
@@ -93,6 +111,24 @@ namespace myBot {
         public static string SignOut {
             get {
                 return ResourceManager.GetString("SignOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tweet timing.
+        /// </summary>
+        public static string TweetTiming {
+            get {
+                return ResourceManager.GetString("TweetTiming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tweet while.
+        /// </summary>
+        public static string TweetWhile {
+            get {
+                return ResourceManager.GetString("TweetWhile", resourceCulture);
             }
         }
     }

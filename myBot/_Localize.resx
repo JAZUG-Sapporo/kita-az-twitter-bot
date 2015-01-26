@@ -120,6 +120,12 @@
   <data name="AppTitle" xml:space="preserve">
     <value>myBot</value>
   </data>
+  <data name="ChangeTweetTiming" xml:space="preserve">
+    <value>Change tweet timing</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Minutes</value>
+  </data>
   <data name="SignIn_Title" xml:space="preserve">
     <value>Sign In</value>
   </data>
@@ -128,5 +134,11 @@
   </data>
   <data name="Sign_in_with_Twitter" xml:space="preserve">
     <value>Sign in with your Twitter account (not Bot account)</value>
+  </data>
+  <data name="TweetTiming" xml:space="preserve">
+    <value>Tweet timing</value>
+  </data>
+  <data name="TweetWhile" xml:space="preserve">
+    <value>Tweet while</value>
   </data>
 </root>

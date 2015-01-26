@@ -1,0 +1,23 @@
+﻿@model DateTime
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@{
+    var duration = 15;
+    var baseTime = new DateTime(1900,1,1);
+    var times = Enumerable.Range(0, 24 * 60 / duration)
+        .Select(n => baseTime.AddMinutes(n * duration))
+        .Select(dt => new { Value = dt, Text = dt.ToString("t") });
+
+    var selectList = new SelectList(times,
+        dataValueField: "Value",
+        dataTextField: "Text",
+        selectedValue: Model);
+    
+    var id = ViewData.TemplateInfo.GetFullHtmlFieldId("");
+    var validationAttributes = Html.GetUnobtrusiveValidationAttributes("");
+    var attributes = new RouteValueDictionary(validationAttributes)
+    {
+        { "id", id },
+    };
+}
+@Html.DropDownList("", selectList, attributes)

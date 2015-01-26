@@ -34,9 +34,7 @@ namespace myBot.Controllers
         // GET: Bot/Details/foo
         public ActionResult Details(string id)
         {
-            var masterID = this.User.Identity.Name;
-            var bot = this.DB.Bots
-                .FirstOrDefault(b => b.BotMasters.Any(master => master.MasterID == masterID));
+            var bot = GetBot(id);
             if (bot == null) return HttpNotFound();
             return View(bot);
         }
@@ -91,25 +89,33 @@ namespace myBot.Controllers
         }
 
 
-        // GET: Bot/Edit/5
-        public ActionResult Edit(int id)
+        // GET: Bot/Edit/foo
+        public ActionResult Edit(string id)
         {
-            return View();
+            var bot = GetBot(id);
+            if (bot == null) return HttpNotFound();
+            return View(bot);
         }
 
-        // POST: Bot/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        // POST: Bot/Edit/foo
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(string id, Bot model)
         {
-            try
-            {
-                // TODO: Add update logic here
+            var bot = GetBot(id);
+            if (bot == null) return HttpNotFound();
 
-                return RedirectToAction("Index");
-            }
-            catch
+            if (ModelState.IsValid)
             {
-                return View();
+                UpdateModel(
+                    model: bot,
+                    includeProperties: new[] { "TimeZone", "BeginTime", "EndTime", "Duration" });
+                await this.DB.SaveChangesAsync();
+
+                return RedirectToAction("Details", new { id });
+            }
+            else
+            {
+                return View(bot);
             }
         }
 
@@ -138,9 +144,7 @@ namespace myBot.Controllers
         [HttpPost]
         public ActionResult TweetAsTheBot(string id, string text)
         {
-            var masterID = this.User.Identity.Name;
-            var bot = this.DB.Bots
-                .FirstOrDefault(b => b.BotMasters.Any(master => master.MasterID == masterID));
+            var bot = GetBot(id);
             if (bot == null) return HttpNotFound();
 
             var twitterAuthOpt = JsonConvert.DeserializeObject<TwitterAuthenticationOptions>(AppSettings.Key.Twitter);
@@ -149,8 +153,17 @@ namespace myBot.Controllers
                 twitterAuthOpt.ConsumerSecret,
                 bot.AccessToken, bot.AccessTokenSecret);
             token.Statuses.Update(status => text);
-            
+
             return new EmptyResult();
+        }
+
+        private Bot GetBot(string botID)
+        {
+            var masterID = this.User.Identity.Name;
+            var bot = this.DB.Bots
+                .Where(b => b.BotID == botID)
+                .FirstOrDefault(b => b.BotMasters.Any(master => master.MasterID == masterID));
+            return bot;
         }
     }
 }

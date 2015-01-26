@@ -17,10 +17,16 @@ namespace myBot.Models
 
         public bool Enabled { get; set; }
 
+        [Required, UIHint("TimeZone")]
+        public string TimeZone { get; set; }
+
+        [UIHint("Time")]
         public DateTime BeginTime { get; set; }
 
+        [UIHint("Time")]
         public DateTime EndTime { get; set; }
 
+        [UIHint("Duration")]
         public int Duration { get; set; }
 
         public virtual List<BotMaster> BotMasters { get; set; }
@@ -28,6 +34,7 @@ namespace myBot.Models
         public Bot()
         {
             this.Enabled = false;
+            this.TimeZone = TimeZoneInfo.Utc.Id;
             this.BeginTime = new DateTime(1900, 1, 1);
             this.EndTime = new DateTime(1900, 1, 1);
             this.Duration = 60;

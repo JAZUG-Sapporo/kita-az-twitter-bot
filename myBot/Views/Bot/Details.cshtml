@@ -4,71 +4,55 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>@Model.BotID</h2>
+
+<dl class="dl-horizontal">
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Enabled)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Enabled)
+    </dd>
+</dl>
+
+<hr />
 
 <div>
-    <h4>Bot</h4>
-    <hr />
+    <h4>@_Localize.TweetTiming</h4>
     <dl class="dl-horizontal">
+
         <dt>
-            @Html.DisplayNameFor(model => model.BotID)
+            @Html.DisplayNameFor(model => model.TimeZone)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.BotID)
+            @Html.DisplayFor(model => model.TimeZone)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.AccessToken)
+            @_Localize.TweetWhile
         </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AccessToken)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AccessTokenSecret)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AccessTokenSecret)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Enabled)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Enabled)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BeginTime)
-        </dt>
-
         <dd>
             @Html.DisplayFor(model => model.BeginTime)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EndTime)
-        </dt>
-
-        <dd>
+            -
             @Html.DisplayFor(model => model.EndTime)
         </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Duration)
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.Duration)
+            @Html.DisplayFor(model => model.Duration) @_Localize.Minutes
         </dd>
-
+        <dt></dt>
+        <dd>
+            @Html.ActionLink(_Localize.ChangeTweetTiming, "Edit", new { id = Model.BotID })
+        </dd>
     </dl>
 </div>
 
 <hr />
+
 <h4>Tweet as the Bot</h4>
 <form id="tweet-as-the-bot-form" action="@Url.Action("TweetAsTheBot", new { id = Model.BotID })" method="post">
     <div class="form-horizontal">
@@ -88,7 +72,6 @@
 </form>
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.BotID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
 
