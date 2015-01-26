@@ -70,11 +70,11 @@ namespace myBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign in with.
+        ///   Looks up a localized string similar to Sign in with your Twitter account (not Bot account).
         /// </summary>
-        public static string Sign_in_with {
+        public static string Sign_in_with_Twitter {
             get {
-                return ResourceManager.GetString("Sign_in_with", resourceCulture);
+                return ResourceManager.GetString("Sign_in_with_Twitter", resourceCulture);
             }
         }
         

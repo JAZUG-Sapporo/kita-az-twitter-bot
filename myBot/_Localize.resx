@@ -126,7 +126,7 @@
   <data name="SignOut" xml:space="preserve">
     <value>Sign Out</value>
   </data>
-  <data name="Sign_in_with" xml:space="preserve">
-    <value>Sign in with</value>
+  <data name="Sign_in_with_Twitter" xml:space="preserve">
+    <value>Sign in with your Twitter account (not Bot account)</value>
   </data>
 </root>

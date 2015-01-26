@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -64,9 +65,11 @@ namespace myBot.Controllers
             if (signInInfo == null) return RedirectToAction("SignIn");
 
             var login = signInInfo.Login;
-            var claimsIdentity = new ClaimsIdentity(signInInfo.ExternalIdentity.Claims, DefaultAuthenticationTypes.ApplicationCookie.ToString());
+            var claims = signInInfo.ExternalIdentity.Claims;
+            var claimsIdentity = new ClaimsIdentity(
+                claims: claims.Where(c => c.Type.In(ClaimTypes.Name, ClaimTypes.NameIdentifier)),
+                authenticationType: DefaultAuthenticationTypes.ApplicationCookie);
             claimsIdentity.AddClaim(new Claim(CustomClaimTypes.IdentityProvider, login.LoginProvider));
-            claimsIdentity.AddClaim(new Claim(CustomClaimTypes.HasedUserId, (login.LoginProvider + "|" + login.ProviderKey + "|" + AppSettings.Salt).ToMD5()));
 
             this.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
 
@@ -92,7 +95,7 @@ namespace myBot.Controllers
             #endregion
             this.AuthenticationManager.SignIn(new AuthenticationProperties
             {
-                IsPersistent = false
+                IsPersistent = true
             },
             claimsIdentity);
 

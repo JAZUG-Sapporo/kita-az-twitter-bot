@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Linq;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
@@ -19,7 +19,7 @@ namespace myBot
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/"),
-                ExpireTimeSpan = TimeSpan.FromMinutes(30),
+                ExpireTimeSpan = TimeSpan.FromDays(365),
                 SlidingExpiration = true
             });
 
