@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Security.Principal;
@@ -26,6 +28,12 @@ namespace myBot
         public static string AppUrl(this Uri requestUrl)
         {
             return requestUrl.GetLeftPart(UriPartial.Scheme | UriPartial.Authority);
+        }
+
+        public static string ValueOf(this IEnumerable<Claim> claims, string type)
+        {
+            var claim = claims.FirstOrDefault(c => c.Type == type);
+            return claim != null ? claim.Value : "";
         }
     }
 }

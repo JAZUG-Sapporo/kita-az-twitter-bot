@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -7,6 +6,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Twitter;
+using myBot.Code;
 
 namespace myBot.Controllers
 {
@@ -37,6 +38,16 @@ namespace myBot.Controllers
 #endif
             // Request a redirect to the external sign in  provider
             return new ChallengeResult(provider, Url.Action("ExternalSignInCallback", "Account", new { ReturnUrl = returnUrl }));
+        }
+
+        public static void OnTwitterApplyRedirect(TwitterApplyRedirectContext context)
+        {
+            var redirectUri = context.RedirectUri + "&force_login=true";
+            if (context.Properties.Dictionary.ContainsKey("screen_name"))
+            {
+                redirectUri += "&screen_name=" + context.Properties.Dictionary["screen_name"];
+            }
+            context.Response.Redirect(redirectUri);
         }
 
         //
@@ -88,6 +99,12 @@ namespace myBot.Controllers
             return RedirectToLocal(returnUrl);
         }
 
+        public static void OnTwitterAuthenticated(TwitterAuthenticatedContext context)
+        {
+            context.Identity.AddClaim(new Claim(CustomClaimTypes.Twitter.AccessToken, context.AccessToken));
+            context.Identity.AddClaim(new Claim(CustomClaimTypes.Twitter.AccessTokenSecret, context.AccessTokenSecret));
+        }
+
         //
         // POST: /Account/SignOut
         [HttpPost, ValidateAntiForgeryToken]
@@ -107,9 +124,6 @@ namespace myBot.Controllers
 
         #region Helpers
 
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
-
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -127,34 +141,6 @@ namespace myBot.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        internal class ChallengeResult : HttpUnauthorizedResult
-        {
-            public ChallengeResult(string provider, string redirectUri)
-                : this(provider, redirectUri, null)
-            {
-            }
-
-            public ChallengeResult(string provider, string redirectUri, string userId)
-            {
-                LoginProvider = provider;
-                RedirectUri = redirectUri;
-                UserId = userId;
-            }
-
-            public string LoginProvider { get; set; }
-            public string RedirectUri { get; set; }
-            public string UserId { get; set; }
-
-            public override void ExecuteResult(ControllerContext context)
-            {
-                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
-                if (UserId != null)
-                {
-                    properties.Dictionary[XsrfKey] = UserId;
-                }
-                context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
-            }
-        }
         #endregion
     }
 }

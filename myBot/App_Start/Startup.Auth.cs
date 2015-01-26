@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Twitter;
+using myBot.Controllers;
 using Newtonsoft.Json;
 using Owin;
 
@@ -24,6 +26,11 @@ namespace myBot
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             var twitterAuthOpt = JsonConvert.DeserializeObject<TwitterAuthenticationOptions>(AppSettings.Key.Twitter);
+            twitterAuthOpt.Provider = new TwitterAuthenticationProvider
+            {
+                OnApplyRedirect = AccountController.OnTwitterApplyRedirect,
+                OnAuthenticated = async context => AccountController.OnTwitterAuthenticated(context)
+            };
             app.UseTwitterAuthentication(twitterAuthOpt);
         }
     }

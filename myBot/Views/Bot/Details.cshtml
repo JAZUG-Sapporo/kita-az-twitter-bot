@@ -1,0 +1,73 @@
+﻿@model myBot.Models.Bot
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Bot</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BotID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BotID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccessToken)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccessToken)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccessTokenSecret)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccessTokenSecret)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Enabled)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Enabled)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BeginTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BeginTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BotID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

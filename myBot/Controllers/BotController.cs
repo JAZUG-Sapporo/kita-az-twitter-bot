@@ -1,8 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Owin.Security;
+using myBot.Code;
 using myBot.Models;
 
 namespace myBot.Controllers
@@ -27,10 +29,14 @@ namespace myBot.Controllers
             return View(myBots);
         }
 
-        // GET: Bot/Details/5
-        public ActionResult Details(int id)
+        // GET: Bot/Details/foo
+        public ActionResult Details(string id)
         {
-            return View();
+            var masterID = this.User.Identity.Name;
+            var bot = this.DB.Bots
+                .FirstOrDefault(b => b.BotMasters.Any(master => master.MasterID == masterID));
+            if (bot == null) return HttpNotFound();
+            return View(bot);
         }
 
         // GET: Bot/Create
@@ -41,19 +47,47 @@ namespace myBot.Controllers
 
         // POST: Bot/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Bot bot)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                return new ChallengeResult(
+                    provider: "Twitter",
+                    redirectUri: Url.Action("AuthBotCallback", "Bot"),
+                    userId: bot.BotID);
             }
-            catch
+            else
             {
                 return View();
             }
         }
+
+        [HttpGet]
+        public async Task<ActionResult> AuthBotCallback()
+        {
+            var authenticationManager = HttpContext.GetOwinContext().Authentication;
+            var signInInfo = await authenticationManager.GetExternalLoginInfoAsync();
+            var claims = signInInfo.ExternalIdentity.Claims;
+            var botID = signInInfo.ExternalIdentity.Name;
+            var accessToken = claims.ValueOf(CustomClaimTypes.Twitter.AccessToken);
+            var accessTokenSecret = claims.ValueOf(CustomClaimTypes.Twitter.AccessTokenSecret);
+
+            this.DB.Bots.Add(new Bot
+            {
+                BotID = botID,
+                AccessToken = accessToken,
+                AccessTokenSecret = accessTokenSecret
+            });
+            this.DB.BotMasters.Add(new BotMaster
+            {
+                BotID = botID,
+                MasterID = this.User.Identity.Name
+            });
+            this.DB.SaveChanges();
+
+            return RedirectToAction("Details", "Bot", new { id = botID });
+        }
+
 
         // GET: Bot/Edit/5
         public ActionResult Edit(int id)
