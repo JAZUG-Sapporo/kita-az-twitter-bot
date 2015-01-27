@@ -86,10 +86,20 @@ namespace myBot.Controllers
         {
             var bot = this.DB.Bots.GetById(this.User, id);
             if (bot == null) return HttpNotFound();
-            var messageToDelete = bot.Messages.FirstOrDefault(m => m.MessageID == messageID);
+            var messages = bot.Messages.ToList();
+            var messageToDelete = messages.FirstOrDefault(m => m.MessageID == messageID);
             if (messageToDelete == null) return HttpNotFound();
 
             this.DB.Messages.Remove(messageToDelete);
+
+            // Renumber 'Order' property
+            messages
+                .Where(m => m.MessageID != messageToDelete.MessageID)
+                .OrderBy(m => m.Order)
+                .Select((m, i) => new { Message = m, NewOrder = i + 1 })
+                .ToList()
+                .ForEach(a => a.Message.Order = a.NewOrder);
+
             await this.DB.SaveChangesAsync();
 
             return new EmptyResult();
