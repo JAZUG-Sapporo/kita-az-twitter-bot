@@ -193,6 +193,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BotController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\BotMasterController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -227,6 +228,7 @@
     <Content Include="Scripts\jquery.form.min.js" />
     <Content Include="Views\Bot\change-enable.js" />
     <Content Include="Views\Bot\Create.cshtml" />
+    <Content Include="Views\Bot\delete-item.js" />
     <Content Include="Views\Bot\Details.cshtml" />
     <Content Include="Scripts\jquery.form.min.js.map" />
     <Content Include="Views\Bot\Edit.cshtml" />
@@ -239,6 +241,7 @@
     <Content Include="Views\Message\Create.cshtml" />
     <Content Include="Views\Message\_MessageForm.cshtml" />
     <Content Include="Views\Message\Edit.cshtml" />
+    <Content Include="Views\BotMaster\Create.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -309,6 +312,7 @@
     <TypeScriptCompile Include="Scripts\typings\jquery.form\jquery.form.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Views\Bot\change-enable.ts" />
+    <TypeScriptCompile Include="Views\Bot\delete-item.ts" />
     <TypeScriptCompile Include="Views\Bot\messages.ts" />
     <TypeScriptCompile Include="Views\Bot\tweet-as-the-bot.ts" />
   </ItemGroup>

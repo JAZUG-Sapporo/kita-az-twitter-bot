@@ -61,6 +61,15 @@ namespace myBot {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add bot master.
+        /// </summary>
+        public static string AddBotMaster {
+            get {
+                return ResourceManager.GetString("AddBotMaster", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add message.
         /// </summary>
         public static string AddMessage {
@@ -106,11 +115,29 @@ namespace myBot {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bot masters.
+        /// </summary>
+        public static string BotMasters {
+            get {
+                return ResourceManager.GetString("BotMasters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change tweet timing.
         /// </summary>
         public static string ChangeTweetTiming {
             get {
                 return ResourceManager.GetString("ChangeTweetTiming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure to deleteing this bot master?.
+        /// </summary>
+        public static string ConfirmDeleteBotMaster {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteBotMaster", resourceCulture);
             }
         }
         

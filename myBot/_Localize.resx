@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddBotMaster" xml:space="preserve">
+    <value>Add bot master</value>
+  </data>
   <data name="AddMessage" xml:space="preserve">
     <value>Add message</value>
   </data>
@@ -132,8 +135,14 @@
   <data name="Back" xml:space="preserve">
     <value>Back</value>
   </data>
+  <data name="BotMasters" xml:space="preserve">
+    <value>Bot masters</value>
+  </data>
   <data name="ChangeTweetTiming" xml:space="preserve">
     <value>Change tweet timing</value>
+  </data>
+  <data name="ConfirmDeleteBotMaster" xml:space="preserve">
+    <value>Are you sure to deleteing this bot master?</value>
   </data>
   <data name="ConfirmDeleteMessage" xml:space="preserve">
     <value>Are you sure to deleting this message?</value>

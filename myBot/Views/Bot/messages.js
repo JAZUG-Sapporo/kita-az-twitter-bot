@@ -1,20 +1,6 @@
 $(function () {
     var $messagesHolder = $('#messages-holder');
-    // Delete message
-    $(document).on('click', '#messages-holder .delete', function (e) {
-        e.preventDefault();
-        if (confirm($messagesHolder.data('confirmDelete')) == false)
-            return;
-        var $target = $(e.target);
-        $.ajax({
-            type: 'POST',
-            url: $target.attr('href')
-        }).done(function () {
-            $target.closest('.message').slideUp('fast');
-        }).fail(function () {
-            alert('Oops, something wrong...');
-        });
-    });
+    // * Deleting message is supported by 'delete-item.ts'.
     // Up/Down message order
     $(document).on('click', '#messages-holder .up,#messages-holder .down', function (e) {
         e.preventDefault();

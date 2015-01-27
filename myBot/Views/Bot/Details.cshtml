@@ -58,10 +58,10 @@
 
 <div>
     <h4>@_Localize.ScheduledMessages</h4>
-    <div id="messages-holder" data-confirm-delete="@_Localize.ConfirmDeleteMessage">
+    <div id="messages-holder" class="deletable-item-holder" data-confirm-delete="@_Localize.ConfirmDeleteMessage">
         @foreach (var message in Model.Messages.OrderBy(m => m.Order))
         {
-            <div class="message">
+            <div class="message deletable-item">
                 <div class="col-md-9">
                     @Html.DisplayFor(modelItem => message.Text)
                 </div>
@@ -76,6 +76,28 @@
     </div>
     <div>
         @Html.RouteLink(_Localize.AddMessage, "Message", new { action = "Create", id = Model.BotID })
+    </div>
+</div>
+
+<hr />
+
+<div>
+    <h4>@_Localize.BotMasters</h4>
+    <div class="deletable-item-holder" data-confirm-delete="@_Localize.ConfirmDeleteBotMaster">
+        @foreach (var botMaster in Model.BotMasters.OrderBy(m => m.MasterID))
+        {
+            <div class="deletable-item">
+                <div class="col-md-9">
+                    @@@Html.DisplayFor(modelItem => botMaster.MasterID)
+                </div>
+                <div class="col-md-3">
+                    @Html.RouteLink(_Localize.Delete, "BotMaster", new { action = "Delete", id = Model.BotID, masterID = botMaster.MasterID }, new { @class = "delete" })
+                </div>
+            </div>
+        }
+    </div>
+    <div>
+        @Html.RouteLink(_Localize.AddBotMaster, "BotMaster", new { action = "Create", id = Model.BotID })
     </div>
 </div>
 
@@ -108,4 +130,5 @@
     <script src="~/Views/Bot/tweet-as-the-bot.js"></script>
     <script src="~/Views/Bot/change-enable.js"></script>
     <script src="~/Views/Bot/messages.js"></script>
+    <script src="~/Views/Bot/delete-item.js"></script>
 }
