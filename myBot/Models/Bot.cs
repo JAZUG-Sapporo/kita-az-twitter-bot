@@ -30,6 +30,8 @@ namespace myBot.Models
         public int Duration { get; set; }
 
         public virtual List<BotMaster> BotMasters { get; set; }
+        
+        public virtual List<Message> Messages { get; set; }
 
         public Bot()
         {

@@ -56,6 +56,31 @@
 
 <hr />
 
+<div>
+    <h4>@_Localize.ScheduledMessages</h4>
+    <div id="messages-holder" data-confirm-delete="@_Localize.ConfirmDeleteMessage">
+        @foreach (var message in Model.Messages.OrderBy(m => m.Order))
+        {
+            <div class="message">
+                <div class="col-md-9">
+                    @Html.DisplayFor(modelItem => message.Text)
+                </div>
+                <div class="col-md-3">
+                    @Html.RouteLink(_Localize.Edit, "Message", new { action = "Edit", id = Model.BotID, messageID = message.MessageID }) |
+                    @Html.RouteLink(_Localize.Up, "Message", new { action = "Up", id = Model.BotID, messageID = message.MessageID }, new { @class = "up" }) |
+                    @Html.RouteLink(_Localize.Down, "Message", new { action = "Down", id = Model.BotID, messageID = message.MessageID }, new { @class = "down" }) |
+                    @Html.RouteLink(_Localize.Delete, "Message", new { action = "Delete", id = Model.BotID, messageID = message.MessageID }, new { @class = "delete" })
+                </div>
+            </div>
+        }
+    </div>
+    <div>
+        @Html.RouteLink(_Localize.AddMessage, "Message", new { action = "Create", id = Model.BotID })
+    </div>
+</div>
+
+<hr />
+
 <h4>Tweet as the Bot</h4>
 <form id="tweet-as-the-bot-form" action="@Url.Action("TweetAsTheBot", new { id = Model.BotID })" method="post">
     <div class="form-horizontal">
@@ -82,4 +107,5 @@
     <script src="~/Scripts/jquery.form.min.js"></script>
     <script src="~/Views/Bot/tweet-as-the-bot.js"></script>
     <script src="~/Views/Bot/change-enable.js"></script>
+    <script src="~/Views/Bot/messages.js"></script>
 }

@@ -34,7 +34,7 @@ namespace myBot.Controllers
         // GET: Bot/Details/foo
         public ActionResult Details(string id)
         {
-            var bot = GetBot(id);
+            var bot = this.DB.Bots.GetById(this.User, id);
             if (bot == null) return HttpNotFound();
             return View(bot);
         }
@@ -91,7 +91,7 @@ namespace myBot.Controllers
         [HttpPost]
         public async Task<ActionResult> ChangeEnable(string id, bool enabled)
         {
-            var bot = GetBot(id);
+            var bot = this.DB.Bots.GetById(this.User, id);
             if (bot == null) return HttpNotFound();
             bot.Enabled = enabled;
             await this.DB.SaveChangesAsync();
@@ -101,7 +101,7 @@ namespace myBot.Controllers
         // GET: Bot/Edit/foo
         public ActionResult Edit(string id)
         {
-            var bot = GetBot(id);
+            var bot = this.DB.Bots.GetById(this.User, id);
             if (bot == null) return HttpNotFound();
             return View(bot);
         }
@@ -110,7 +110,7 @@ namespace myBot.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(string id, Bot model)
         {
-            var bot = GetBot(id);
+            var bot = this.DB.Bots.GetById(this.User, id);
             if (bot == null) return HttpNotFound();
 
             if (ModelState.IsValid)
@@ -153,7 +153,7 @@ namespace myBot.Controllers
         [HttpPost]
         public ActionResult TweetAsTheBot(string id, string text)
         {
-            var bot = GetBot(id);
+            var bot = this.DB.Bots.GetById(this.User, id);
             if (bot == null) return HttpNotFound();
 
             var twitterAuthOpt = JsonConvert.DeserializeObject<TwitterAuthenticationOptions>(AppSettings.Key.Twitter);
@@ -164,15 +164,6 @@ namespace myBot.Controllers
             token.Statuses.Update(status => text);
 
             return new EmptyResult();
-        }
-
-        private Bot GetBot(string botID)
-        {
-            var masterID = this.User.Identity.Name;
-            var bot = this.DB.Bots
-                .Where(b => b.BotID == botID)
-                .FirstOrDefault(b => b.BotMasters.Any(master => master.MasterID == masterID));
-            return bot;
         }
     }
 }

@@ -193,12 +193,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BotController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Bot.cs" />
     <Compile Include="Models\BotMaster.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\MyBotDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -228,11 +230,15 @@
     <Content Include="Views\Bot\Details.cshtml" />
     <Content Include="Scripts\jquery.form.min.js.map" />
     <Content Include="Views\Bot\Edit.cshtml" />
+    <Content Include="Views\Bot\messages.js" />
     <Content Include="Views\Shared\EditorTemplates\TimeZone.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\TimeZone.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Time.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Duration.cshtml" />
+    <Content Include="Views\Message\Create.cshtml" />
+    <Content Include="Views\Message\_MessageForm.cshtml" />
+    <Content Include="Views\Message\Edit.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -303,6 +309,7 @@
     <TypeScriptCompile Include="Scripts\typings\jquery.form\jquery.form.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Views\Bot\change-enable.ts" />
+    <TypeScriptCompile Include="Views\Bot\messages.ts" />
     <TypeScriptCompile Include="Views\Bot\tweet-as-the-bot.ts" />
   </ItemGroup>
   <PropertyGroup>

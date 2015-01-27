@@ -1,0 +1,10 @@
+﻿@model myBot.Models.Message
+@{
+    ViewBag.Title = _Localize.EditMessage;
+}
+
+@Html.Partial("_MessageForm", Model)
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

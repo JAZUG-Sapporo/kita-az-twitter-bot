@@ -61,6 +61,15 @@ namespace myBot {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add message.
+        /// </summary>
+        public static string AddMessage {
+            get {
+                return ResourceManager.GetString("AddMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to myBot.
         /// </summary>
         public static string AppTitle {
@@ -88,6 +97,15 @@ namespace myBot {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        public static string Back {
+            get {
+                return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change tweet timing.
         /// </summary>
         public static string ChangeTweetTiming {
@@ -97,11 +115,56 @@ namespace myBot {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure to deleting this message?.
+        /// </summary>
+        public static string ConfirmDeleteMessage {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disabled.
         /// </summary>
         public static string Disabled {
             get {
                 return ResourceManager.GetString("Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Down.
+        /// </summary>
+        public static string Down {
+            get {
+                return ResourceManager.GetString("Down", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit message.
+        /// </summary>
+        public static string EditMessage {
+            get {
+                return ResourceManager.GetString("EditMessage", resourceCulture);
             }
         }
         
@@ -120,6 +183,24 @@ namespace myBot {
         public static string Minutes {
             get {
                 return ResourceManager.GetString("Minutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scheduled Messages.
+        /// </summary>
+        public static string ScheduledMessages {
+            get {
+                return ResourceManager.GetString("ScheduledMessages", resourceCulture);
             }
         }
         
@@ -151,6 +232,15 @@ namespace myBot {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Text.
+        /// </summary>
+        public static string Text {
+            get {
+                return ResourceManager.GetString("Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tweet timing.
         /// </summary>
         public static string TweetTiming {
@@ -165,6 +255,15 @@ namespace myBot {
         public static string TweetWhile {
             get {
                 return ResourceManager.GetString("TweetWhile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Up.
+        /// </summary>
+        public static string Up {
+            get {
+                return ResourceManager.GetString("Up", resourceCulture);
             }
         }
     }
