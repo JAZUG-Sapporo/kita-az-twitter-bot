@@ -1,0 +1,1 @@
+﻿This file ensure creating App_Data folder when deployment at Microsoft Azure Websites via git.
