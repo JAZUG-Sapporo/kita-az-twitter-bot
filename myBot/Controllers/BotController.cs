@@ -151,17 +151,38 @@ namespace myBot.Controllers
         }
 
         [HttpPost]
-        public ActionResult TweetAsTheBot(string id, string text)
+        public async Task<ActionResult> TweetAsTheBot(string id, string text)
         {
             var bot = this.DB.Bots.GetById(this.User, id);
             if (bot == null) return HttpNotFound();
 
-            var twitterAuthOpt = JsonConvert.DeserializeObject<TwitterAuthenticationOptions>(AppSettings.Key.Twitter);
-            var token = CoreTweet.Tokens.Create(
-                twitterAuthOpt.ConsumerKey,
-                twitterAuthOpt.ConsumerSecret,
-                bot.AccessToken, bot.AccessTokenSecret);
-            token.Statuses.Update(status => text);
+            await bot.TweetAsync(text);
+
+            return new EmptyResult();
+        }
+
+        [HttpGet, AllowAnonymous]
+        public async Task<ActionResult> TweetScheduledMessage(string utctime)
+        {
+            var alivedBots = this.DB.Bots.Include("Messages")
+                .Where(bot => bot.Enabled)
+                .Where(bot => bot.Messages.Any())
+                .Where(bot => bot.BotMasters.Any())
+                .ToArray();
+
+            const int BUFF = 2;
+            var utcNow = utctime == null ? DateTime.UtcNow : DateTime.Parse(utctime);
+            var utcNowTime = new DateTime(1900, 1, 1, utcNow.Hour, utcNow.Minute, 0);
+            var botsToTweet = alivedBots
+                .Where(bot => bot.GetTweetTimingsUTC().Any(t => Math.Abs((t - utcNowTime).TotalMinutes) <= BUFF))
+                .Select(bot => new { bot, message = bot.GetMessageToNextTweet() })
+                .ToList();
+
+            botsToTweet.ForEach(_ => _.message.AtLastTweeted = utcNow);
+            var tweetTasks = botsToTweet.Select(_ => _.bot.TweetAsync(_.message.Text)).ToArray();
+            await Task.WhenAll(tweetTasks);
+
+            await this.DB.SaveChangesAsync();
 
             return new EmptyResult();
         }

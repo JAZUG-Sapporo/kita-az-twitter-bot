@@ -1,0 +1,192 @@
+﻿using System;
+using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using myBot.Models;
+using myBot.Code;
+using System.Collections.Generic;
+
+namespace myBot.Test
+{
+    [TestClass]
+    public class BotExtensionTest
+    {
+        [TestMethod]
+        public void GetTweetTimings_JustEndTime_Test()
+        {
+            var bot = new Bot
+            {
+                BeginTime = new DateTime(1900, 1, 1, 21, 0, 0),
+                EndTime = new DateTime(1900, 1, 1, 22, 30, 0),
+                Duration = 45
+            };
+            bot.GetTweetTimingsUTC().Is(
+                new DateTime(1900, 1, 1, 21, 0, 0),
+                new DateTime(1900, 1, 1, 21, 45, 0),
+                new DateTime(1900, 1, 1, 22, 30, 0)
+            );
+        }
+
+        [TestMethod]
+        public void GetTweetTimings_OverEndTime_Test()
+        {
+            var bot = new Bot
+            {
+                BeginTime = new DateTime(1900, 1, 1, 21, 0, 0),
+                EndTime = new DateTime(1900, 1, 1, 23, 30, 0),
+                Duration = 45
+            };
+            bot.GetTweetTimingsUTC().Is(
+                new DateTime(1900, 1, 1, 21, 0, 0),
+                new DateTime(1900, 1, 1, 21, 45, 0),
+                new DateTime(1900, 1, 1, 22, 30, 0),
+                new DateTime(1900, 1, 1, 23, 15, 0)
+            );
+        }
+
+        [TestMethod]
+        public void GetTweetTimings_OverDay_Test()
+        {
+            var bot = new Bot
+            {
+                BeginTime = new DateTime(1900, 1, 1, 23, 0, 0),
+                EndTime = new DateTime(1900, 1, 1, 9, 0, 0),
+                Duration = 120
+            };
+            bot.GetTweetTimingsUTC().Is(
+                new DateTime(1900, 1, 1, 23, 0, 0),
+                new DateTime(1900, 1, 2, 1, 0, 0),
+                new DateTime(1900, 1, 2, 3, 0, 0),
+                new DateTime(1900, 1, 2, 5, 0, 0),
+                new DateTime(1900, 1, 2, 7, 0, 0),
+                new DateTime(1900, 1, 2, 9, 0, 0)
+            );
+        }
+
+        [TestMethod]
+        public void GetTweetTimings_OverDay_TimeZone_Test()
+        {
+            var bot = new Bot
+            {
+                TimeZone = "Tokyo Standard Time",
+                BeginTime = new DateTime(1900, 1, 1, 23, 0, 0),
+                EndTime = new DateTime(1900, 1, 1, 9, 0, 0),
+                Duration = 120
+            };
+            bot.GetTweetTimingsUTC().Is(
+                new DateTime(1900, 1, 1, 14, 0, 0),
+                new DateTime(1900, 1, 1, 16, 0, 0),
+                new DateTime(1900, 1, 1, 18, 0, 0),
+                new DateTime(1900, 1, 1, 20, 0, 0),
+                new DateTime(1900, 1, 1, 22, 0, 0),
+                new DateTime(1900, 1, 2, 0, 0, 0)
+            );
+        }
+
+        [TestMethod]
+        public void GetTweetTimings_AllDay_Test()
+        {
+            var bot = new Bot
+            {
+                BeginTime = new DateTime(1900, 1, 1, 0, 0, 0),
+                EndTime = new DateTime(1900, 1, 1, 0, 0, 0),
+                Duration = 60
+            };
+            bot.GetTweetTimingsUTC().Is(
+                new DateTime(1900, 1, 1, 0, 0, 0),
+                new DateTime(1900, 1, 1, 1, 0, 0),
+                new DateTime(1900, 1, 1, 2, 0, 0),
+                new DateTime(1900, 1, 1, 3, 0, 0),
+                new DateTime(1900, 1, 1, 4, 0, 0),
+                new DateTime(1900, 1, 1, 5, 0, 0),
+                new DateTime(1900, 1, 1, 6, 0, 0),
+                new DateTime(1900, 1, 1, 7, 0, 0),
+                new DateTime(1900, 1, 1, 8, 0, 0),
+                new DateTime(1900, 1, 1, 9, 0, 0),
+                new DateTime(1900, 1, 1, 10, 0, 0),
+                new DateTime(1900, 1, 1, 11, 0, 0),
+                new DateTime(1900, 1, 1, 12, 0, 0),
+                new DateTime(1900, 1, 1, 13, 0, 0),
+                new DateTime(1900, 1, 1, 14, 0, 0),
+                new DateTime(1900, 1, 1, 15, 0, 0),
+                new DateTime(1900, 1, 1, 16, 0, 0),
+                new DateTime(1900, 1, 1, 17, 0, 0),
+                new DateTime(1900, 1, 1, 18, 0, 0),
+                new DateTime(1900, 1, 1, 19, 0, 0),
+                new DateTime(1900, 1, 1, 20, 0, 0),
+                new DateTime(1900, 1, 1, 21, 0, 0),
+                new DateTime(1900, 1, 1, 22, 0, 0),
+                new DateTime(1900, 1, 1, 23, 0, 0),
+                new DateTime(1900, 1, 2, 0, 0, 0)
+            );
+        }
+
+        [TestMethod]
+        public void GetMessageToNextTweet_AllNull_Test()
+        {
+            var bot = new Bot { Messages = new List<Message>() };
+            bot.Messages.AddRange(new[] { 
+                new Message { MessageID = 1, AtLastTweeted = null, Text = "Message-A" },
+                new Message { MessageID = 2, AtLastTweeted = null, Text = "Message-B" },
+                new Message { MessageID = 3, AtLastTweeted = null, Text = "Message-C" },
+            });
+
+            bot.GetMessageToNextTweet().MessageID.Is(1);
+        }
+
+        [TestMethod]
+        public void GetMessageToNextTweet_ContainsNull_Test()
+        {
+            var bot = new Bot { Messages = new List<Message>() };
+            bot.Messages.AddRange(new[] { 
+                new Message { MessageID = 1, AtLastTweeted = new DateTime(2015, 1, 27, 23, 0, 0), Text = "Message-A" },
+                new Message { MessageID = 2, AtLastTweeted = new DateTime(2015, 1, 28, 1, 0, 0), Text = "Message-B" },
+                new Message { MessageID = 3, AtLastTweeted = null, Text = "Message-C" },
+                new Message { MessageID = 4, AtLastTweeted = null, Text = "Message-D" },
+            });
+
+            bot.GetMessageToNextTweet().MessageID.Is(3);
+        }
+
+        [TestMethod]
+        public void GetMessageToNextTweet_JustEndLast_Test()
+        {
+            var bot = new Bot { Messages = new List<Message>() };
+            bot.Messages.AddRange(new[] { 
+                new Message { MessageID = 1, AtLastTweeted = new DateTime(2015, 1, 27, 23, 0, 0), Text = "Message-A" },
+                new Message { MessageID = 2, AtLastTweeted = new DateTime(2015, 1, 28, 1, 0, 0), Text = "Message-B" },
+                new Message { MessageID = 3, AtLastTweeted = new DateTime(2015, 1, 28, 3, 0, 0), Text = "Message-C" },
+                new Message { MessageID = 4, AtLastTweeted = new DateTime(2015, 1, 28, 5, 0, 0), Text = "Message-D" },
+            });
+
+            bot.GetMessageToNextTweet().MessageID.Is(1);
+        }
+
+        [TestMethod]
+        public void GetMessageToNextTweet_RollOvered_Test()
+        {
+            var bot = new Bot { Messages = new List<Message>() };
+            bot.Messages.AddRange(new[] { 
+                new Message { MessageID = 1, AtLastTweeted = new DateTime(2015, 1, 28, 7, 0, 0), Text = "Message-A" },
+                new Message { MessageID = 2, AtLastTweeted = new DateTime(2015, 1, 28, 1, 0, 0), Text = "Message-B" },
+                new Message { MessageID = 3, AtLastTweeted = new DateTime(2015, 1, 28, 3, 0, 0), Text = "Message-C" },
+                new Message { MessageID = 4, AtLastTweeted = new DateTime(2015, 1, 28, 5, 0, 0), Text = "Message-D" },
+            });
+
+            bot.GetMessageToNextTweet().MessageID.Is(2);
+        }
+
+        [TestMethod]
+        public void GetMessageToNextTweet_ChangedOrder_Test()
+        {
+            var bot = new Bot { Messages = new List<Message>() };
+            bot.Messages.AddRange(new[] { 
+                new Message { MessageID = 1, AtLastTweeted = new DateTime(2015, 1, 27, 23, 0, 0), Text = "Message-A" },
+                new Message { MessageID = 2, AtLastTweeted = new DateTime(2015, 1, 28, 3, 0, 0), Text = "Message-C" },
+                new Message { MessageID = 3, AtLastTweeted = new DateTime(2015, 1, 28, 1, 0, 0), Text = "Message-B" },
+                new Message { MessageID = 4, AtLastTweeted = new DateTime(2015, 1, 28, 5, 0, 0), Text = "Message-D" },
+            });
+
+            bot.GetMessageToNextTweet().MessageID.Is(3);
+        }
+    }
+}
