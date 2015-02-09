@@ -179,6 +179,8 @@ namespace myBot.Controllers
                 .ToList();
 
             botsToTweet.ForEach(_ => _.message.AtLastTweeted = utcNow);
+            var twitterAuthOpt = JsonConvert.DeserializeObject<TwitterAuthenticationOptions>(AppSettings.Key.Twitter);
+            botsToTweet.ForEach(_ => _.bot.Init(twitterAuthOpt.ConsumerKey, twitterAuthOpt.ConsumerSecret));
             var tweetTasks = botsToTweet.Select(_ => _.bot.TweetAsync(_.message.Text)).ToArray();
             await Task.WhenAll(tweetTasks);
 

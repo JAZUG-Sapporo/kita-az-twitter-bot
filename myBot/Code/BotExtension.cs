@@ -18,6 +18,8 @@ namespace myBot
             var bot = bots
                 .Where(b => b.BotID == botID)
                 .FirstOrDefault(b => b.BotMasters.Any(master => master.MasterID == masterID));
+            var twitterAuthOpt = JsonConvert.DeserializeObject<TwitterAuthenticationOptions>(AppSettings.Key.Twitter);
+            bot.Init(twitterAuthOpt.ConsumerKey, twitterAuthOpt.ConsumerSecret);
             return bot;
         }
 
@@ -50,17 +52,6 @@ namespace myBot
                 .First();
 
             return messageToNextTweet;
-        }
-
-        public static Task<CoreTweet.StatusResponse> TweetAsync(this Bot bot, string text)
-        {
-            var twitterAuthOpt = JsonConvert.DeserializeObject<TwitterAuthenticationOptions>(AppSettings.Key.Twitter);
-            var token = CoreTweet.Tokens.Create(
-                twitterAuthOpt.ConsumerKey,
-                twitterAuthOpt.ConsumerSecret,
-                bot.AccessToken, 
-                bot.AccessTokenSecret);
-            return token.Statuses.UpdateAsync(status => text);
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace myBot.Models
@@ -30,7 +32,7 @@ namespace myBot.Models
         public int Duration { get; set; }
 
         public virtual List<BotMaster> BotMasters { get; set; }
-        
+
         public virtual List<Message> Messages { get; set; }
 
         public Bot()
@@ -41,5 +43,48 @@ namespace myBot.Models
             this.EndTime = new DateTime(1900, 1, 1);
             this.Duration = 60;
         }
+
+        [NotMapped]
+        private string ConsumerKey { get; set; }
+
+        [NotMapped]
+        private string ConsumerSecret { get; set; }
+
+        [NotMapped]
+        private CoreTweet.Tokens _Token;
+
+        [NotMapped]
+        private CoreTweet.Tokens Token
+        {
+            get
+            {
+                if (this._Token == null)
+                {
+                    this._Token = CoreTweet.Tokens.Create(
+                        this.ConsumerKey,
+                        this.ConsumerSecret,
+                        this.AccessToken,
+                        this.AccessTokenSecret);
+                }
+                return this._Token;
+            }
+        }
+
+        internal void Init(string consumerKey, string consumerSecret)
+        {
+            this.ConsumerKey = consumerKey;
+            this.ConsumerSecret = consumerSecret;
+        }
+
+        public CoreTweet.StatusResponse Tweet(string text)
+        {
+            return this.TweetAsync(text).Result;
+        }
+
+        public Task<CoreTweet.StatusResponse> TweetAsync(string text)
+        {
+            return this.Token.Statuses.UpdateAsync(status => text);
+        }
+
     }
 }
