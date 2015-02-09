@@ -35,6 +35,8 @@ namespace myBot.Models
 
         public virtual List<Message> Messages { get; set; }
 
+        public virtual List<ExtensionScript> ExtensionScripts { get; set; }
+
         public Bot()
         {
             this.Enabled = false;
