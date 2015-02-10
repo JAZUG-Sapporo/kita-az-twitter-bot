@@ -65,7 +65,7 @@ namespace myBot.Controllers
             if (script == null) return HttpNotFound();
             if (ModelState.IsValid)
             {
-                UpdateModel(script, "Title,Language,TargetEvent,ScriptBody".Split(','));
+                UpdateModel(script, "Title,Language,TargetEvent,ScriptBody,Enabled".Split(','));
                 await this.DB.SaveChangesAsync();
                 return RedirectToAction("Details", "Bot", new { id });
             }

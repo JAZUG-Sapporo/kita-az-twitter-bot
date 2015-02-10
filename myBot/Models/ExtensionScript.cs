@@ -32,7 +32,14 @@ namespace myBot.Models
         [Required]
         public string ScriptBody { get; set; }
 
+        public bool Enabled { get; set; }
+
         public virtual Bot Bot { get; set; }
+
+        public ExtensionScript()
+        {
+            this.Enabled = true;
+        }
 
         public static IEnumerable<string> GetSupportedLanguageNames()
         {

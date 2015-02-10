@@ -194,6 +194,7 @@ namespace myBot.Controllers
 
             var scriptTasks = botsToTweet
                 .SelectMany(bot => bot.ExtensionScripts)
+                .Where(script => script.Enabled)
                 .Select(script => script.ExecuteAsync())
                 .ToArray();
 
