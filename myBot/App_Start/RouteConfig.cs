@@ -26,6 +26,12 @@ namespace myBot
             );
 
             routes.MapRoute(
+                name: "ExtensionScript",
+                url: "Bot/{id}/ExtensionScript/{action}/{scriptID}",
+                defaults: new { controller = "ExtensionScript", action = "Index", id = "", scriptID = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

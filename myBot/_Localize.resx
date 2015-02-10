@@ -120,6 +120,9 @@
   <data name="AddBotMaster" xml:space="preserve">
     <value>Add bot master</value>
   </data>
+  <data name="AddExtesionScript" xml:space="preserve">
+    <value>Add extension script</value>
+  </data>
   <data name="AddMessage" xml:space="preserve">
     <value>Add message</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>Enabled</value>
+  </data>
+  <data name="ExtensionScripts" xml:space="preserve">
+    <value>Extension Scripts</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>Minutes</value>

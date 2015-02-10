@@ -1,0 +1,10 @@
+﻿@model myBot.Models.ExtensionScript
+@{
+    ViewBag.Title = _Localize.Edit;
+}
+
+@Html.Partial("_ExtensionScriptForm", Model)
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

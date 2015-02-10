@@ -103,6 +103,29 @@
 
 <hr />
 
+<div>
+    <h4>@_Localize.ExtensionScripts</h4>
+    <div class="deletable-item-holder" data-confirm-delete="@_Localize.ConfirmDeleteBotMaster">
+        @foreach (var script in Model.ExtensionScripts.OrderBy(m => m.ScriptID))
+        {
+            <div class="deletable-item">
+                <div class="col-md-9">
+                    @Html.DisplayFor(modelItem => script.Title)
+                </div>
+                <div class="col-md-3">
+                    @Html.RouteLink(_Localize.Edit, "ExtensionScript", new { action = "Edit", id = Model.BotID, scriptID = script.ScriptID }) |
+                    @Html.RouteLink(_Localize.Delete, "ExtensionScript", new { action = "Delete", id = Model.BotID, scriptID = script.ScriptID }, new { @class = "delete" })
+                </div>
+            </div>
+        }
+    </div>
+    <div>
+        @Html.RouteLink(_Localize.AddExtesionScript, "ExtensionScript", new { action = "Create", id = Model.BotID })
+    </div>
+</div>
+
+<hr />
+
 <h4>Tweet as the Bot</h4>
 <form id="tweet-as-the-bot-form" action="@Url.Action("TweetAsTheBot", new { id = Model.BotID })" method="post">
     <div class="form-horizontal">

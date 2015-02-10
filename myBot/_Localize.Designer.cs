@@ -70,6 +70,15 @@ namespace myBot {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add extension script.
+        /// </summary>
+        public static string AddExtesionScript {
+            get {
+                return ResourceManager.GetString("AddExtesionScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add message.
         /// </summary>
         public static string AddMessage {
@@ -201,6 +210,15 @@ namespace myBot {
         public static string Enabled {
             get {
                 return ResourceManager.GetString("Enabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extension Scripts.
+        /// </summary>
+        public static string ExtensionScripts {
+            get {
+                return ResourceManager.GetString("ExtensionScripts", resourceCulture);
             }
         }
         
