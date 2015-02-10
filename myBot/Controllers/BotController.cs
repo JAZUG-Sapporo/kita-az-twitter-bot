@@ -164,10 +164,12 @@ namespace myBot.Controllers
         [HttpGet, AllowAnonymous]
         public async Task<ActionResult> TweetScheduledMessage(string utctime)
         {
-            var alivedBots = this.DB.Bots.Include("Messages")
+            var alivedBots = this.DB.Bots
+                .Include("Messages")
+                .Include("ExtensionScripts")
                 .Where(bot => bot.Enabled)
-                .Where(bot => bot.Messages.Any())
                 .Where(bot => bot.BotMasters.Any())
+                .Where(bot => bot.Messages.Any() || bot.ExtensionScripts.Any())
                 .ToArray();
 
             const int BUFF = 2;
@@ -175,14 +177,27 @@ namespace myBot.Controllers
             var utcNowTime = new DateTime(1900, 1, 1, utcNow.Hour, utcNow.Minute, 0);
             var botsToTweet = alivedBots
                 .Where(bot => bot.GetTweetTimingsUTC().Any(t => Math.Abs((t - utcNowTime).TotalMinutes) <= BUFF))
-                .Select(bot => new { bot, message = bot.GetMessageToNextTweet() })
                 .ToList();
 
-            botsToTweet.ForEach(_ => _.message.AtLastTweeted = utcNow);
             var twitterAuthOpt = JsonConvert.DeserializeObject<TwitterAuthenticationOptions>(AppSettings.Key.Twitter);
-            botsToTweet.ForEach(_ => _.bot.Init(twitterAuthOpt.ConsumerKey, twitterAuthOpt.ConsumerSecret));
-            var tweetTasks = botsToTweet.Select(_ => _.bot.TweetAsync(_.message.Text)).ToArray();
-            await Task.WhenAll(tweetTasks);
+            botsToTweet.ForEach(bot => bot.Init(twitterAuthOpt.ConsumerKey, twitterAuthOpt.ConsumerSecret));
+
+            var tweetTasks = botsToTweet
+                .Select(bot => bot.GetMessageToNextTweet())
+                .Where(msg => msg != null)
+                .Select(msg =>
+                {
+                    msg.AtLastTweeted = utcNow;
+                    return msg.Bot.TweetAsync(msg.Text);
+                })
+                .ToArray();
+
+            var scriptTasks = botsToTweet
+                .SelectMany(bot => bot.ExtensionScripts)
+                .Select(script => script.ExecuteAsync())
+                .ToArray();
+
+            await Task.WhenAll(tweetTasks.Union(scriptTasks));
 
             await this.DB.SaveChangesAsync();
 

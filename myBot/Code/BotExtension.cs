@@ -48,8 +48,8 @@ namespace myBot
                 .Zip(messages, (m1, m2) => new { m1, m2 })
                 .SkipWhile(_ => _.m2.AtLastTweeted < _.m1.AtLastTweeted || _.m1.AtLastTweeted == _.m2.AtLastTweeted)
                 .Select(_ => _.m1)
-                .DefaultIfEmpty(messages.First())
-                .First();
+                .DefaultIfEmpty(messages.FirstOrDefault())
+                .FirstOrDefault();
 
             return messageToNextTweet;
         }

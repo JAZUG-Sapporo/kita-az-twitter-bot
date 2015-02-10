@@ -60,13 +60,16 @@ namespace myBot.Models
         {
             get
             {
-                if (this._Token == null)
+                lock (this)
                 {
-                    this._Token = CoreTweet.Tokens.Create(
-                        this.ConsumerKey,
-                        this.ConsumerSecret,
-                        this.AccessToken,
-                        this.AccessTokenSecret);
+                    if (this._Token == null)
+                    {
+                        this._Token = CoreTweet.Tokens.Create(
+                            this.ConsumerKey,
+                            this.ConsumerSecret,
+                            this.AccessToken,
+                            this.AccessTokenSecret);
+                    }
                 }
                 return this._Token;
             }
@@ -80,13 +83,14 @@ namespace myBot.Models
 
         public CoreTweet.StatusResponse Tweet(string text)
         {
-            return this.TweetAsync(text).Result;
+            return this.TweetAsync(text).Result as CoreTweet.StatusResponse;
         }
 
-        public Task<CoreTweet.StatusResponse> TweetAsync(string text)
+        public Task<CoreTweet.Status> TweetAsync(string text)
         {
-            return this.Token.Statuses.UpdateAsync(status => text);
+            return this.Token.Statuses
+                .UpdateAsync(status => text)
+                .ContinueWith(s => (CoreTweet.Status)s.Result);
         }
-
     }
 }

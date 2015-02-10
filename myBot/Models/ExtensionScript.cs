@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using Microsoft.Scripting.Hosting;
 
@@ -37,6 +38,20 @@ namespace myBot.Models
         {
             var scriptRuntime = ScriptRuntime.CreateFromConfiguration();
             return scriptRuntime.Setup.LanguageSetups.Select(lang => lang.DisplayName);
+        }
+
+        public Task<CoreTweet.Status> ExecuteAsync()
+        {
+            return Task.Run(() =>
+            {
+                var scriptRuntime = ScriptRuntime.CreateFromConfiguration();
+                var engine = scriptRuntime.GetEngine(this.Language);
+                var scope = scriptRuntime.CreateScope();
+                scope.SetVariable("theBot", this.Bot);
+                engine.Execute(this.ScriptBody, scope);
+
+                return new CoreTweet.Status();
+            });
         }
     }
 }
