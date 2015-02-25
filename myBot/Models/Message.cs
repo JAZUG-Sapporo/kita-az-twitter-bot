@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace myBot.Models
 {
@@ -14,7 +15,7 @@ namespace myBot.Models
         [Required]
         public string BotID { get; set; }
 
-        [Required]
+        [Required, AllowHtml]
         public string Text { get; set; }
 
         public int Order { get; set; }

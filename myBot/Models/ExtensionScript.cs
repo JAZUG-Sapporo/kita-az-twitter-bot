@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 using Microsoft.Scripting.Hosting;
 
 namespace myBot.Models
@@ -29,7 +30,7 @@ namespace myBot.Models
 
         public TargetEventType TargetEvent { get; set; }
 
-        [Required]
+        [Required, AllowHtml]
         public string ScriptBody { get; set; }
 
         public bool Enabled { get; set; }

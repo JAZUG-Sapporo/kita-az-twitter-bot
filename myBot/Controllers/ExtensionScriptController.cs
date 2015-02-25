@@ -57,7 +57,7 @@ namespace myBot.Controllers
 
         // POST: foo/ExtensionScript/Edit/5
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(string id, int scriptID, FormCollection _)
+        public async Task<ActionResult> Edit(string id, int scriptID, ExtensionScript model)
         {
             var bot = this.DB.Bots.GetById(this.User, id);
             if (bot == null) return HttpNotFound();

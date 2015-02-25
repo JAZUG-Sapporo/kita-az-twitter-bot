@@ -150,7 +150,7 @@ namespace myBot.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public async Task<ActionResult> TweetAsTheBot(string id, string text)
         {
             var bot = this.DB.Bots.GetById(this.User, id);
