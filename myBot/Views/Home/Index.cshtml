@@ -2,20 +2,27 @@
 @{
     ViewBag.Title = _Localize.SignIn_Title;
 }
-
-<div class="jumbotron home-page">
+<div class="section row">
     <h1>@_Localize.AppTitle</h1>
     <p class="lead">@*(lead)*@</p>
 
-    <form class="visible-if-not-signedin" action="@Url.Action("ExternalSignIn", "Account", new { ReturnUrl = Url.Action("Index", "Bot") })" method="post">
+    <form class="visible-if-not-signedin col s12" action="@Url.Action("ExternalSignIn", "Account", new { ReturnUrl = Url.Action("Index", "Bot") })" method="post">
         @Html.AntiForgeryToken()
-        <button type="submit" class="btn btn-primary btn-lg" name="provider" value="Twitter" title="@_Localize.Sign_in_with_Twitter">
+        <button type="submit" class="btn btn-large col s12 blue darken-1 waves-effect" name="provider" value="Twitter" title="@_Localize.Sign_in_with_Twitter">
+            <i class="mdi-navigation-chevron-right right"></i>
             @_Localize.Sign_in_with_Twitter
         </button>
         @*<button type="submit" class="btn btn-default" id="demo" name="provider" value="demo" title="Sign in using your demo account">demo</button>*@
     </form>
 
     <div>
-        <a class="visible-if-signedin btn btn-lg btn-primary" href="@Url.Action("Index", "Bot")">Your Bots &raquo;</a>
+        <a class="visible-if-signedin btn btn-large col s12 blue darken-1 waves-effect" href="@Url.Action("Index", "Bot")">
+            <i class="mdi-navigation-chevron-right right"></i>
+            Your Bots
+        </a>
     </div>
 </div>
+@*
+    <div class="jumbotron home-page">
+    </div>
+*@

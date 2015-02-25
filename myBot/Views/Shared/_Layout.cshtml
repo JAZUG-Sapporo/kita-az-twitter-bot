@@ -27,37 +27,39 @@
     <meta name="theme-color" content="#aad1ff">
 
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body class="@(Request.IsAuthenticated ? "signedin" : "not-signedin")">
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="grey darken-3" role="navigation">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="@Url.Action("Index", "Home")" class="navbar-brand">@_Localize.AppTitle</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                @Html.Partial("_LoginPartial")
+            <div class="nav-wrapper">
+                <span id="logo-container" class="brand-logo">
+                    <a href="@Url.Action("Index", "Home")">
+                        @_Localize.AppTitle
+                    </a>
+                </span>
             </div>
         </div>
-    </div>
+    </nav>
 
-    <div class="container body-content">
+    @*
+        <div class="navbar-collapse collapse">
+            @Html.Partial("_LoginPartial")
+        </div>
+    *@
+
+    <div class="container">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - @_Localize.AppTitle</p>
-        </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    <hr />
+
+    <div>
+        <p>&copy; @DateTime.Now.Year - @_Localize.AppTitle</p>
+    </div>
+
+    @Scripts.Render("~/bundles/js")
     @RenderSection("scripts", required: false)
 </body>
 </html>

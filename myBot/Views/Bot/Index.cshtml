@@ -1,31 +1,21 @@
 ﻿@model IEnumerable<myBot.Models.Bot>
 
 @{
-    ViewBag.Title = "Bots";
+    ViewBag.Title = "Your Bots";
 }
 
 <h2>@ViewBag.Title</h2>
 
+
+<div class="collection">
+    @foreach (var item in Model)
+    {
+        <a href="@Url.Action("Details", new { id = item.BotID })" class="collection-item">
+            <i class="mdi-navigation-chevron-right right"></i>
+            @@@Html.DisplayFor(modelItem => item.BotID)
+        </a>
+    }
+</div>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.BotID)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BotID)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", new { id=item.BotID })
-        </td>
-    </tr>
-}
-
-</table>

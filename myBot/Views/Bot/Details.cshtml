@@ -4,21 +4,22 @@
     ViewBag.Title = "Details";
 }
 
-<h2>@Model.BotID</h2>
+<h2>@@@Model.BotID</h2>
 
-<form id="bot-status-holder" action="@Url.Action("ChangeEnable", new { id = Model.BotID })" class="bot-enabled-@Model.Enabled.ToString().ToLower()">
-    <div class="bot-disabled">
-        <button id="btn-make-enable" class="btn btn-danger btn-block" data-confirm="@_Localize.AreYouSureToEnablingThisBot">
-            @_Localize.Disabled
-        </button>
-    </div>
-    <div class="bot-enabled">
-        <button id="btn-make-disable" class="btn btn-primary btn-block" data-confirm="@_Localize.AreYouSureToDisablingThisBot">
-            @_Localize.Enabled
-        </button>
-    </div>
-</form>
-
+<div class="row">
+    <form id="bot-status-holder" action="@Url.Action("ChangeEnable", new { id = Model.BotID })" class="bot-enabled-@Model.Enabled.ToString().ToLower()">
+        <div class="bot-disabled">
+            <button id="btn-make-enable" class="btn red darken-2 col s12 waves-effect" data-confirm="@_Localize.AreYouSureToEnablingThisBot">
+                @_Localize.Disabled
+            </button>
+        </div>
+        <div class="bot-enabled">
+            <button id="btn-make-disable" class="btn blue darken-1 col s12 waves-effect" data-confirm="@_Localize.AreYouSureToDisablingThisBot">
+                @_Localize.Enabled
+            </button>
+        </div>
+    </form>
+</div>
 <hr />
 
 <div>
@@ -103,46 +104,46 @@
 
 <hr />
 
-<div>
-    <h4>@_Localize.ExtensionScripts</h4>
-    <div class="deletable-item-holder" data-confirm-delete="@_Localize.ConfirmDeleteBotMaster">
-        @foreach (var script in Model.ExtensionScripts.OrderBy(m => m.ScriptID))
-        {
-            <div class="deletable-item">
-                <div class="col-md-9">
-                    @Html.DisplayFor(modelItem => script.Title)
+
+<div class="row">
+
+    <div class="col s12 l6">
+        <h4>@_Localize.ExtensionScripts</h4>
+
+        <div class="deletable-item-holder" data-confirm-delete="@_Localize.ConfirmDeleteBotMaster">
+            @foreach (var script in Model.ExtensionScripts.OrderBy(m => m.ScriptID))
+            {
+                <div class="deletable-item">
+                    <div class="col-md-9">
+                        @Html.DisplayFor(modelItem => script.Title)
+                    </div>
+                    <div class="col-md-3">
+                        @Html.RouteLink(_Localize.Edit, "ExtensionScript", new { action = "Edit", id = Model.BotID, scriptID = script.ScriptID }) |
+                        @Html.RouteLink(_Localize.Delete, "ExtensionScript", new { action = "Delete", id = Model.BotID, scriptID = script.ScriptID }, new { @class = "delete" })
+                    </div>
                 </div>
-                <div class="col-md-3">
-                    @Html.RouteLink(_Localize.Edit, "ExtensionScript", new { action = "Edit", id = Model.BotID, scriptID = script.ScriptID }) |
-                    @Html.RouteLink(_Localize.Delete, "ExtensionScript", new { action = "Delete", id = Model.BotID, scriptID = script.ScriptID }, new { @class = "delete" })
-                </div>
-            </div>
-        }
+            }
+        </div>
+        <div>
+            @Html.RouteLink(_Localize.AddExtesionScript, "ExtensionScript", new { action = "Create", id = Model.BotID })
+        </div>
     </div>
-    <div>
-        @Html.RouteLink(_Localize.AddExtesionScript, "ExtensionScript", new { action = "Create", id = Model.BotID })
+
+    <div class="col s12 l6">
+        <h4>Tweet as the Bot</h4>
+
+        <form id="tweet-as-the-bot-form" action="@Url.Action("TweetAsTheBot", new { id = Model.BotID })" method="post">
+            <div class="input-field col s12">
+                <textarea id="text" name="text" class="materialize-textarea"></textarea>
+                <label for="text">Text</label>
+            </div>
+
+            <div class="input-field col s12">
+                <button id="tweet" type="submit" class="btn">Tweet</button>
+            </div>
+        </form>
     </div>
 </div>
-
-<hr />
-
-<h4>Tweet as the Bot</h4>
-<form id="tweet-as-the-bot-form" action="@Url.Action("TweetAsTheBot", new { id = Model.BotID })" method="post">
-    <div class="form-horizontal">
-        <div class="form-group">
-            <label for="text" class="control-label col-md-2">Text</label>
-            <div class="col-md-10">
-                <textarea name="text" class="form-control"></textarea>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input id="tweet" type="submit" value="Tweet" class="btn btn-primary" />
-            </div>
-        </div>
-    </div>
-</form>
 
 <p>
     @Html.ActionLink("Back to List", "Index")
