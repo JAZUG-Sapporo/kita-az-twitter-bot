@@ -21,5 +21,10 @@ namespace myBot
 
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<MyBotDB, Configuration>());
         }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            UnhandledExceptionLogger.Write(Server.GetLastError());
+        }
     }
 }

@@ -224,6 +224,9 @@
     <Compile Include="Code\ChallengeResult.cs" />
     <Compile Include="Code\CustomClaimTypes.cs" />
     <Compile Include="Code\Extensions.cs" />
+    <Compile Include="Code\Logging\LogToFileListener.cs" />
+    <Compile Include="Code\Logging\SendMailListener.cs" />
+    <Compile Include="Code\Logging\UnhandledExceptionLogger.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BotController.cs" />
     <Compile Include="Controllers\ExtensionScriptController.cs" />
@@ -312,6 +315,7 @@
     <Content Include="Views\ExtensionScript\Edit.cshtml" />
     <Content Include="Views\ExtensionScript\_ExtensionScriptForm.cshtml" />
     <Content Include="Content\favicons\manifest.json" />
+    <Content Include="Views\Home\Error.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -350,7 +354,6 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />

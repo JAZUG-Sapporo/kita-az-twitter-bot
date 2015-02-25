@@ -151,7 +151,7 @@ namespace myBot.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
-        public async Task<ActionResult> TweetAsTheBot(string id, string text)
+        public async Task<ActionResult> xTweetAsTheBot(string id, string text)
         {
             var bot = this.DB.Bots.GetById(this.User, id);
             if (bot == null) return HttpNotFound();

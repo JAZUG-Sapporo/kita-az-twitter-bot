@@ -22,5 +22,10 @@ namespace myBot
         {
             return options.Any(opt => opt.Equals(value));
         }
+
+        public static IEnumerable<string> Except(this IEnumerable<string> first, params string[] seconds)
+        {
+            return Enumerable.Except(first, seconds);
+        }
     }
 }
