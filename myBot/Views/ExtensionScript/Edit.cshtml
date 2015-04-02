@@ -1,6 +1,8 @@
 ﻿@model myBot.Models.ExtensionScript
 @{
     ViewBag.Title = _Localize.Edit;
+    ViewBag.GoBackURL = Url.Action("Details", "Bot", new { id = Model.BotID });
+    ViewBag.GoBackText = _Localize.Back;
 }
 
 @Html.Partial("_ExtensionScriptForm", Model)

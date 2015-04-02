@@ -24,9 +24,9 @@
             </div>
 
             <div class="input-field col s12 m7">
-                @Html.LabelFor(model => model.Language)
                 <div class="col-md-10">
                     @Html.DropDownListFor(model => model.Language, langList, new { @class = "form-control" })
+                    @Html.LabelFor(model => model.Language)
                     @Html.ValidationMessageFor(model => model.Language, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -53,12 +53,11 @@
         </div>
 
         <div class="row">
-
-            <button type="submit" class="btn blue darken-1 col s12 m4 waves-effect">
-                @_Localize.Save
-            </button>
-
-            @Html.ActionLink(_Localize.Back, "Details", "Bot", new { id = Model.BotID }, new { @class = "col s12 m4" })
+            <div class="col s12">
+                <button type="submit" class="btn waves-effect">
+                    @_Localize.Save
+                </button>
+            </div>
         </div>
     </form>
 </div>

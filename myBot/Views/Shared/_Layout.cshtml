@@ -30,34 +30,34 @@
 
 </head>
 <body class="@(Request.IsAuthenticated ? "signedin" : "not-signedin")">
-
     <nav class="grey darken-3" role="navigation">
         <div class="container">
+            @if (ViewBag.GoBackURL != null)
+            {
+                <a href="@ViewBag.GoBackURL" class="go-back" title="@ViewBag.GoBackText">
+                    <i class="medium mdi-image-navigate-before"></i>
+                </a>
+            }
             <div class="nav-wrapper">
                 <span id="logo-container" class="brand-logo">
                     <a href="@Url.Action("Index", "Home")">
                         @_Localize.AppTitle
                     </a>
                 </span>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </nav>
 
-    @*
-        <div class="navbar-collapse collapse">
-            @Html.Partial("_LoginPartial")
-        </div>
-    *@
 
     <div class="container">
         @RenderBody()
     </div>
 
-    <hr />
-
-    <div>
-        <p>&copy; @DateTime.Now.Year - @_Localize.AppTitle</p>
-    </div>
+    <footer>
+        <p>CSS styling by <a href="http://materializecss.com/" target="_blank">Materialize</a>.</p>
+        <p>Source codes of @_Localize.AppTitle is on <a href="https://github.com/JAZUG-Sapporo/kita-az-twitter-bot" target="_blank">GitHub</a>.</p>
+    </footer>
 
     @Scripts.Render("~/bundles/js")
     @RenderSection("scripts", required: false)

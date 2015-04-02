@@ -1,45 +1,170 @@
-﻿/*body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}*/
-
-/* Set padding to keep content from hitting the edges */
-/*.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}*/
-
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-/*.dl-horizontal dt {
-    white-space: normal;
-}*/
-
-/* Set width on the form input elements since they're 100% wide by default */
-/*input,
-select,
-textarea {
-    max-width: 280px;
-}*/
-
-/* ----------------- */
+﻿/* ----------------- */
 .not-signedin .visible-if-signedin,
 .signedin .visible-if-not-signedin {
     display: none;
 }
 
-/* ----------------- */
-/*.navbar-nav a.user-name {
-    color: #fff !important;
+html {
+    font-family: "Roboto", "Meiryo", "Yu Gothic", sans-serif;
 }
 
-.home-page.jumbotron .btn {
-    width: 100%;
-}*/
+textarea.materialize-textarea {
+    margin: 0.4em 2em 0 0;
+    background-color: #f8f8f8;
+    padding: 1em;
+}
+
+footer {
+    margin-top: 4em;
+    padding: 2em;
+    border-top: solid 1px #ddd;
+    font-size: 90%;
+    color: #888;
+}
+
+    footer p {
+        display: inline-block;
+        margin: 0 0.7em 0 0;
+    }
+
+.select-wrapper +label{
+    top:0;
+}
+
+/* Go back */
+a.go-back {
+    position: absolute;
+    left: 0;
+    display: inline-block;
+    height: 56px;
+    line-height: 56px;
+    color: #ccc;
+    -moz-transition: all linear 0.2s;
+    -o-transition: all linear 0.2s;
+    -webkit-transition: all linear 0.2s;
+    transition: all linear 0.2s;
+}
+
+    a.go-back:hover {
+        color: white;
+        background-color: #666;
+    }
+
+@media only screen and (min-width : 601px) {
+    a.go-back {
+        height: 64px;
+        line-height: 64px;
+    }
+}
+
+/* user-name & sign-out */
+#signOutForm {
+    position: absolute;
+    right: 0;
+}
+
+    #signOutForm, #signOutForm * {
+        color: #ccc;
+    }
+
+        #signOutForm span {
+            padding: 0;
+            font-size: 90%;
+        }
+
+        #signOutForm a:hover {
+            color: white;
+        }
+
+.caption-with-commands {
+    margin: 1em 0 0 0;
+}
+
+    .caption-with-commands:after {
+        display: block;
+        content: "";
+        clear: both;
+    }
+
+    .caption-with-commands h2,
+    .caption-with-commands h4 {
+        margin: 0 0.4em 0 0;
+        float: left;
+    }
 
 /* ---- Bot/Detail ---- */
 .bot-enabled-true .bot-disabled,
 .bot-enabled-false .bot-enabled {
     display: none;
 }
+
+dl {
+    margin-top: 0;
+    margin-bottom: 0.2em;
+}
+
+dt {
+    font-weight: bold;
+    display: inline-block;
+    float: left;
+}
+
+dd {
+    display: block;
+    margin-left: 6.5em;
+}
+
+.time-zone {
+    margin-left: 1em;
+    font-size: 90%;
+    color: #aaa;
+}
+
+.deletable-item {
+    padding: 0.5em 1em;
+    background-color: #fafafa;
+}
+
+    .deletable-item:nth-child(2n+1) {
+        background-color: #f6f6f6;
+    }
+
+    .deletable-item::after {
+        display: block;
+        content: "";
+        clear: both;
+    }
+
+    .deletable-item .contents {
+        float: left;
+    }
+
+    .deletable-item .commands {
+        float: right;
+    }
+
+#tweet-as-the-bot-form .input-field {
+    padding-right: 1.6em;
+    padding-left: 0;
+    margin-top: 0;
+}
+
+.script.disabled .contents {
+    color: #aaa;
+}
+
+    .script.disabled .contents:after {
+        content: "disabled";
+        color: #fff;
+        background-color: #ccc;
+        padding: 0.2em 0.5em;
+        margin-left: 0.5em;
+        font-size: 90%;
+        border-radius: 6px;
+    }
+
+/* Extension Script Editor*/
+/*label[for=Language] {
+    top: 0;
+    font-size: 0.8rem;
+}*/

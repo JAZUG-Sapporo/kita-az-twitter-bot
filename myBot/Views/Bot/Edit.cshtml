@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = _Localize.ChangeTweetTiming;
+    ViewBag.GoBackURL = Url.Action("Details", new { id = Model.BotID });
+    ViewBag.GoBackText = _Localize.Back;
 }
 
 <h2>@Model.BotID</h2>
@@ -43,13 +45,10 @@
                 @Html.ValidationMessageFor(model => model.TimeZone, "", new { @class = "text-danger" })
             </div>
 
-            <div class="input-field">
-                <button type="submit" class="btn blue darken-1 col s12 m4 waves-effect">
+            <div class="input-field col s12">
+                <button type="submit" class="btn waves-effect">
                     @_Localize.Save
                 </button>
-                <a href="@Url.Action("Details", new { id = Model.BotID })" class="col s12 m4">
-                    @_Localize.Back
-                </a>
             </div>
 
         </div>

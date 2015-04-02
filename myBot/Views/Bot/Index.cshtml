@@ -4,8 +4,13 @@
     ViewBag.Title = "Your Bots";
 }
 
-<h2>@ViewBag.Title</h2>
+<div class="caption-with-commands">
+    <h4>@ViewBag.Title</h4>
 
+    <a href="@Url.Action("Create")" title="Add new bot" class="btn-floating btn-flat waves-effect waves-light teal lighten-1">
+        <i class="mdi-content-add"></i>
+    </a>
+</div>
 
 <div class="collection">
     @foreach (var item in Model)
@@ -16,6 +21,3 @@
         </a>
     }
 </div>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
