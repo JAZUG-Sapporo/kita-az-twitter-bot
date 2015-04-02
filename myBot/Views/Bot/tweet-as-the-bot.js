@@ -1,5 +1,16 @@
 /// <reference path="../../scripts/typings/jquery/jquery.d.ts" />
 /// <reference path="../../scripts/typings/jquery.form/jquery.form.d.ts" />
+var myBot;
+(function (myBot) {
+    var TweetAsTheBotController = (function () {
+        function TweetAsTheBotController($scope) {
+            $scope.text = '';
+        }
+        return TweetAsTheBotController;
+    })();
+    var app = angular.module('myBot');
+    app.controller('TweetAsTheBotController', TweetAsTheBotController);
+})(myBot || (myBot = {}));
 $(function () {
     $('#tweet-as-the-bot-form').ajaxForm({
         success: function () {

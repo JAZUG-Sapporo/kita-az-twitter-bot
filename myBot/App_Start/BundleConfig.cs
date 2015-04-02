@@ -10,7 +10,9 @@ namespace myBot
         {
             bundles.Add(new ScriptBundle("~/bundles/js").Include(
                         "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/materialize.js"));
+                        "~/Scripts/materialize.js",
+                        "~/Scripts/angular.js",
+                        "~/Scripts/mybot-common.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
