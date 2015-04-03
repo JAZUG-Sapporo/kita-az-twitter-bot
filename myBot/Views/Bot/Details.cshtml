@@ -55,22 +55,20 @@
 <div class="row">
 
     @* Tweet as the Bot *@
-    <div class="col s12 l6" ng-app="myBot" ng-controller="TweetAsTheBotController as ctrl">
+    <div class="col s12 l6" ng-app="myBot" ng-controller="TweetTextController as ctrl">
         <h4>Tweet as the Bot</h4>
 
         <form id="tweet-as-the-bot-form" action="@Url.Action("TweetAsTheBot", new { id = Model.BotID })" method="post">
             <div class="input-field col s12">
-                <textarea id="text" name="text" class="materialize-textarea" ng-model="text">
-                </textarea>
+                <textarea id="text" name="text" class="materialize-textarea" ng-model="text"></textarea>
                 <label for="text">Text to Tweet</label>
-                <div ng-bind="text|charcounter:140">
-                    
-                </div>
+                <div ng-bind="text|charcounter:140" ng-class="{'char-counter':true, lv1:(text|charcounter:140) < 21, lv2:(text|charcounter:140) < 11}"></div>
             </div>
 
-
             <div class="input-field col s12">
-                <button id="tweet" type="submit" class="btn btn-flat teal lighten-1 white-text">Tweet</button>
+                <button id="tweet" type="submit" class="btn waves-effect" ng-disabled="(text|charcounter:140) < 0 || text == ''">
+                    Tweet
+                </button>
             </div>
         </form>
     </div>

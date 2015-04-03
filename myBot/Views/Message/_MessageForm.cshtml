@@ -4,25 +4,28 @@
 <div class="row">
     <h4 class="col s12">@ViewBag.Title</h4>
 
-    <form class="col s12" method="post">
+    @Html.HiddenFor(m => m.Text, new { id = "original-text" })
+
+    <form class="col s12" method="post" action="@Url.RouteUrl("Message", this.ViewContext.RouteData.Values)" 
+          ng-app="myBot" 
+          ng-controller="TweetTextController as ctrl">
         @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.BotID)
 
         <div class="row">
 
             <div class="input-field col s12">
-                @Html.TextAreaFor(model => model.Text, htmlAttributes: new { @class = "materialize-textarea", autofocus = "" })
+                @Html.TextAreaFor(model => model.Text, htmlAttributes: new { @class = "materialize-textarea", autofocus = "", ng_model = "text" })
                 @Html.LabelFor(model => model.Text)
                 @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+                <div ng-bind="text|charcounter:140" ng-class="{'char-counter':true, lv1:(text|charcounter:140) < 21, lv2:(text|charcounter:140) < 11}"></div>
             </div>
 
             <div class="input-field col s12">
-                <button type="submit" class="btn waves-effect">
+                <button type="submit" class="btn waves-effect" ng-disabled="(text|charcounter:140) < 0 || text == ''">
                     @_Localize.Save
                 </button>
             </div>
         </div>
     </form>
 </div>
-
-

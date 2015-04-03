@@ -27,8 +27,8 @@ footer {
         margin: 0 0.7em 0 0;
     }
 
-.select-wrapper +label{
-    top:0;
+.select-wrapper + label {
+    top: 0;
 }
 
 /* Go back */
@@ -162,6 +162,22 @@ dd {
         font-size: 90%;
         border-radius: 6px;
     }
+
+/* Tweet text */
+.char-counter {
+    text-align: right;
+    font-size: 90%;
+    color: #888;
+}
+
+    .char-counter.lv1 {
+        color: #5c0002;
+    }
+
+    .char-counter.lv2 {
+        color: #D40D12;
+    }
+
 
 /* Extension Script Editor*/
 /*label[for=Language] {
