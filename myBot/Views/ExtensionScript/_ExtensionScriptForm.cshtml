@@ -3,7 +3,9 @@
 @{
     var langList = new SelectList(ExtensionScript.GetSupportedLanguageNames(), Model.Language);
 }
-<h2>@Model.BotID</h2>
+
+@Html.Partial("_BotNameTitle", Model.BotID)
+
 
 <div class="row">
 

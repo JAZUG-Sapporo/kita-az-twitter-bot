@@ -45,6 +45,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="CacheableContentResult, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CacheableContentResult.1.0.0.0\lib\net40\CacheableContentResult.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="CoreTweet">
       <HintPath>..\packages\CoreTweet.0.4.0\lib\net45\CoreTweet.dll</HintPath>
     </Reference>
@@ -235,6 +239,7 @@
     <Compile Include="Controllers\ExtensionScriptController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\BotMasterController.cs" />
+    <Compile Include="Controllers\IconController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1108,6 +1113,7 @@
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\mybot-common.js.map" />
+    <Content Include="Views\Shared\_BotNameTitle.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -1154,7 +1160,9 @@
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
     <None Include="_bin_deployableAssemblies\x86\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Icon\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

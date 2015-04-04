@@ -76,6 +76,16 @@ a.go-back {
             color: white;
         }
 
+/* bot name title */
+h2 {
+    font-size: 38px;
+}
+
+    h2 .profile-image {
+        vertical-align: middle;
+        border-radius: 8px;
+    }
+
 .caption-with-commands {
     margin: 1em 0 0 0;
 }
@@ -90,6 +100,20 @@ a.go-back {
     .caption-with-commands h4 {
         margin: 0 0.4em 0 0;
         float: left;
+    }
+
+/* ---- Bot/List ---- */
+.your-bots .collection-item {
+    line-height: 42px;
+}
+
+    .your-bots .collection-item img {
+        position: absolute;
+    }
+
+    .your-bots .collection-item span {
+        padding-left: 62px;
+        font-size: 28px;
     }
 
 /* ---- Bot/Detail ---- */
@@ -147,6 +171,12 @@ dd {
     padding-right: 1.6em;
     padding-left: 0;
     margin-top: 0;
+}
+
+.bot-master .contents .profile-image {
+    vertical-align: middle;
+    margin-right: 0.3em;
+    border-radius: 12px;
 }
 
 .script.disabled .contents {

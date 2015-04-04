@@ -12,12 +12,13 @@
     </a>
 </div>
 
-<div class="collection">
+<div class="collection your-bots">
     @foreach (var item in Model)
     {
         <a href="@Url.Action("Details", new { id = item.BotID })" class="collection-item">
-            <i class="mdi-navigation-chevron-right right"></i>
-            @@@Html.DisplayFor(modelItem => item.BotID)
+            <i class="mdi-navigation-chevron-right right medium"></i>
+            <img src="~/icon/normal/@item.BotID" />
+            <span>@@@Html.DisplayFor(modelItem => item.BotID)</span>
         </a>
     }
 </div>

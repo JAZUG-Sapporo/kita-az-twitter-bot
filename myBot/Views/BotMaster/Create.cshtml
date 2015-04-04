@@ -5,7 +5,7 @@
     ViewBag.GoBackText = _Localize.Back;
 }
 
-<h2>@Model.BotID</h2>
+@Html.Partial("_BotNameTitle", Model.BotID)
 
 @using (Html.BeginForm())
 {

@@ -1,5 +1,6 @@
 ﻿@model myBot.Models.Message
-<h2>@Model.BotID</h2>
+
+@Html.Partial("_BotNameTitle", Model.BotID)
 
 <div class="row">
     <h4 class="col s12">@ViewBag.Title</h4>

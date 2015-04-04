@@ -6,7 +6,7 @@
     ViewBag.GoBackText = "Back to List";
 }
 
-<h2>@@@Model.BotID</h2>
+@Html.Partial("_BotNameTitle", Model.BotID)
 
 <div class="row">
     <form id="bot-status-holder" action="@Url.Action("ChangeEnable", new { id = Model.BotID })" class="bot-enabled-@Model.Enabled.ToString().ToLower()">
@@ -118,8 +118,9 @@
         <div class="deletable-item-holder" data-confirm-delete="@_Localize.ConfirmDeleteBotMaster">
             @foreach (var botMaster in Model.BotMasters.OrderBy(m => m.MasterID))
             {
-                <div class="deletable-item">
+                <div class="deletable-item bot-master">
                     <div class="contents">
+                        <img src="~/icon/mini/@botMaster.MasterID" class="profile-image" />
                         @@@Html.DisplayFor(modelItem => botMaster.MasterID)
                     </div>
                     <div class="commands">

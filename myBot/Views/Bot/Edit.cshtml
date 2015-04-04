@@ -6,7 +6,7 @@
     ViewBag.GoBackText = _Localize.Back;
 }
 
-<h2>@Model.BotID</h2>
+@Html.Partial("_BotNameTitle", Model.BotID)
 
 <div class="row">
     <h4 class="col s12">@_Localize.ChangeTweetTiming</h4>
