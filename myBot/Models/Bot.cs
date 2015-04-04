@@ -35,7 +35,12 @@ namespace myBot.Models
 
         public virtual List<Message> Messages { get; set; }
 
+        public virtual List<MessageJournal> MessageJournals { get; set; }
+
         public virtual List<ExtensionScript> ExtensionScripts { get; set; }
+
+        [NotMapped]
+        public Message MessageToNextTweet { get; set; }
 
         public Bot()
         {

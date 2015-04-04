@@ -23,7 +23,7 @@ namespace myBot
             return bot;
         }
 
-        public static IEnumerable<DateTime> GetTweetTimingsUTC(this Bot bot)
+        public static IEnumerable<TimeSpan> GetTweetTimingsUTC(this Bot bot)
         {
             var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(bot.TimeZone);
 
@@ -32,7 +32,7 @@ namespace myBot
             var time = TimeZoneInfo.ConvertTimeToUtc(bot.BeginTime, timeZoneInfo);
             do
             {
-                yield return time;
+                yield return time.TimeOfDay;
                 time = time.AddMinutes(bot.Duration);
             } while (time <= endTimeUtc);
         }
@@ -52,6 +52,52 @@ namespace myBot
                 .FirstOrDefault();
 
             return messageToNextTweet;
+        }
+
+        public static string AvoidDupulicateText(this Bot bot, string text)
+        {
+            var jornals = bot.MessageJournals
+                .OrderByDescending(msg => msg.TweetAt)
+                .Take(10)
+                .ToArray();
+
+            var orgText = text;
+            text = GenerateAvoidingTextPatterns(text)
+                .FirstOrDefault(t => jornals.All(j => t != j.Text));
+            if (text == null) return orgText;
+
+            bot.MessageJournals.Add(new MessageJournal
+            {
+                Text = text,
+                TweetAt = DateTime.UtcNow
+            });
+
+            return text;
+        }
+
+        public static IEnumerable<string> GenerateAvoidingTextPatterns(string text)
+        {
+            var list = text.ToCharArray();
+            return GenerateAvoidingTextPatterns(list.FirstOrDefault(), list.Skip(1));
+        }
+
+        private static IEnumerable<string> GenerateAvoidingTextPatterns(char head, IEnumerable<char> tails)
+        {
+            if (head == default(char))
+            {
+                yield return "";
+                yield break;
+            }
+            if (tails.Any() == false)
+            {
+                yield return head.ToString();
+                yield break;
+            }
+            foreach (var item in GenerateAvoidingTextPatterns(tails.First(), tails.Skip(1)))
+            {
+                yield return head + item;
+                yield return head + "\u200b" + item;
+            }
         }
     }
 }

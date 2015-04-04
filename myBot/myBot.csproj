@@ -247,6 +247,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Bot.cs" />
     <Compile Include="Models\BotMaster.cs" />
+    <Compile Include="Models\MessageJournal.cs" />
     <Compile Include="Models\ExtensionScript.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\MyBotDB.cs" />

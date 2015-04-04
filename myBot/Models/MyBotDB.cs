@@ -14,6 +14,8 @@ namespace myBot.Models
 
         public DbSet<Message> Messages { get; set; }
 
+        public DbSet<MessageJournal> MessageJournals { get; set; }
+
         public DbSet<ExtensionScript> ExtensionScripts { get; set; }
     }
 }

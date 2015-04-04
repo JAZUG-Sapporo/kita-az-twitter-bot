@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using myBot.Models;
 using myBot.Code;
-using System.Collections.Generic;
+using myBot.Models;
+using Toolbelt;
 
 namespace myBot.Test
 {
@@ -20,9 +21,9 @@ namespace myBot.Test
                 Duration = 45
             };
             bot.GetTweetTimingsUTC().Is(
-                new DateTime(1900, 1, 1, 21, 0, 0),
-                new DateTime(1900, 1, 1, 21, 45, 0),
-                new DateTime(1900, 1, 1, 22, 30, 0)
+                new TimeSpan(21, 0, 0),
+                new TimeSpan(21, 45, 0),
+                new TimeSpan(22, 30, 0)
             );
         }
 
@@ -36,10 +37,10 @@ namespace myBot.Test
                 Duration = 45
             };
             bot.GetTweetTimingsUTC().Is(
-                new DateTime(1900, 1, 1, 21, 0, 0),
-                new DateTime(1900, 1, 1, 21, 45, 0),
-                new DateTime(1900, 1, 1, 22, 30, 0),
-                new DateTime(1900, 1, 1, 23, 15, 0)
+                new TimeSpan(21, 0, 0),
+                new TimeSpan(21, 45, 0),
+                new TimeSpan(22, 30, 0),
+                new TimeSpan(23, 15, 0)
             );
         }
 
@@ -53,12 +54,12 @@ namespace myBot.Test
                 Duration = 120
             };
             bot.GetTweetTimingsUTC().Is(
-                new DateTime(1900, 1, 1, 23, 0, 0),
-                new DateTime(1900, 1, 2, 1, 0, 0),
-                new DateTime(1900, 1, 2, 3, 0, 0),
-                new DateTime(1900, 1, 2, 5, 0, 0),
-                new DateTime(1900, 1, 2, 7, 0, 0),
-                new DateTime(1900, 1, 2, 9, 0, 0)
+                new TimeSpan(23, 0, 0),
+                new TimeSpan(1, 0, 0),
+                new TimeSpan(3, 0, 0),
+                new TimeSpan(5, 0, 0),
+                new TimeSpan(7, 0, 0),
+                new TimeSpan(9, 0, 0)
             );
         }
 
@@ -73,12 +74,12 @@ namespace myBot.Test
                 Duration = 120
             };
             bot.GetTweetTimingsUTC().Is(
-                new DateTime(1900, 1, 1, 14, 0, 0),
-                new DateTime(1900, 1, 1, 16, 0, 0),
-                new DateTime(1900, 1, 1, 18, 0, 0),
-                new DateTime(1900, 1, 1, 20, 0, 0),
-                new DateTime(1900, 1, 1, 22, 0, 0),
-                new DateTime(1900, 1, 2, 0, 0, 0)
+                new TimeSpan(14, 0, 0),
+                new TimeSpan(16, 0, 0),
+                new TimeSpan(18, 0, 0),
+                new TimeSpan(20, 0, 0),
+                new TimeSpan(22, 0, 0),
+                new TimeSpan(0, 0, 0)
             );
         }
 
@@ -92,31 +93,31 @@ namespace myBot.Test
                 Duration = 60
             };
             bot.GetTweetTimingsUTC().Is(
-                new DateTime(1900, 1, 1, 0, 0, 0),
-                new DateTime(1900, 1, 1, 1, 0, 0),
-                new DateTime(1900, 1, 1, 2, 0, 0),
-                new DateTime(1900, 1, 1, 3, 0, 0),
-                new DateTime(1900, 1, 1, 4, 0, 0),
-                new DateTime(1900, 1, 1, 5, 0, 0),
-                new DateTime(1900, 1, 1, 6, 0, 0),
-                new DateTime(1900, 1, 1, 7, 0, 0),
-                new DateTime(1900, 1, 1, 8, 0, 0),
-                new DateTime(1900, 1, 1, 9, 0, 0),
-                new DateTime(1900, 1, 1, 10, 0, 0),
-                new DateTime(1900, 1, 1, 11, 0, 0),
-                new DateTime(1900, 1, 1, 12, 0, 0),
-                new DateTime(1900, 1, 1, 13, 0, 0),
-                new DateTime(1900, 1, 1, 14, 0, 0),
-                new DateTime(1900, 1, 1, 15, 0, 0),
-                new DateTime(1900, 1, 1, 16, 0, 0),
-                new DateTime(1900, 1, 1, 17, 0, 0),
-                new DateTime(1900, 1, 1, 18, 0, 0),
-                new DateTime(1900, 1, 1, 19, 0, 0),
-                new DateTime(1900, 1, 1, 20, 0, 0),
-                new DateTime(1900, 1, 1, 21, 0, 0),
-                new DateTime(1900, 1, 1, 22, 0, 0),
-                new DateTime(1900, 1, 1, 23, 0, 0),
-                new DateTime(1900, 1, 2, 0, 0, 0)
+                new TimeSpan(0, 0, 0),
+                new TimeSpan(1, 0, 0),
+                new TimeSpan(2, 0, 0),
+                new TimeSpan(3, 0, 0),
+                new TimeSpan(4, 0, 0),
+                new TimeSpan(5, 0, 0),
+                new TimeSpan(6, 0, 0),
+                new TimeSpan(7, 0, 0),
+                new TimeSpan(8, 0, 0),
+                new TimeSpan(9, 0, 0),
+                new TimeSpan(10, 0, 0),
+                new TimeSpan(11, 0, 0),
+                new TimeSpan(12, 0, 0),
+                new TimeSpan(13, 0, 0),
+                new TimeSpan(14, 0, 0),
+                new TimeSpan(15, 0, 0),
+                new TimeSpan(16, 0, 0),
+                new TimeSpan(17, 0, 0),
+                new TimeSpan(18, 0, 0),
+                new TimeSpan(19, 0, 0),
+                new TimeSpan(20, 0, 0),
+                new TimeSpan(21, 0, 0),
+                new TimeSpan(22, 0, 0),
+                new TimeSpan(23, 0, 0),
+                new TimeSpan(0, 0, 0)
             );
         }
 
@@ -187,6 +188,20 @@ namespace myBot.Test
             });
 
             bot.GetMessageToNextTweet().MessageID.Is(3);
+        }
+
+        [TestMethod]
+        public void GenerateAvoidingTextPatterns_Test()
+        {
+            BotExtension.GenerateAvoidingTextPatterns("").Is("");
+
+            BotExtension.GenerateAvoidingTextPatterns("A").Is("A");
+
+            BotExtension.GenerateAvoidingTextPatterns("ABC").Is(
+                "ABC",
+                "A\u200bBC",
+                "AB\u200bC",
+                "A\u200bB\u200bC");
         }
     }
 }

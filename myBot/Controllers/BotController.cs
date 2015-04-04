@@ -156,7 +156,9 @@ namespace myBot.Controllers
             var bot = this.DB.Bots.GetById(this.User, id);
             if (bot == null) return HttpNotFound();
 
+            text = bot.AvoidDupulicateText(text);
             await bot.TweetAsync(text);
+            await this.DB.SaveChangesAsync();
 
             return new EmptyResult();
         }
@@ -166,6 +168,7 @@ namespace myBot.Controllers
         {
             var alivedBots = this.DB.Bots
                 .Include("Messages")
+                .Include("MessageJournals")
                 .Include("ExtensionScripts")
                 .Where(bot => bot.Enabled)
                 .Where(bot => bot.BotMasters.Any())
@@ -174,32 +177,62 @@ namespace myBot.Controllers
 
             const int BUFF = 2;
             var utcNow = utctime == null ? DateTime.UtcNow : DateTime.Parse(utctime);
-            var utcNowTime = new DateTime(1900, 1, 1, utcNow.Hour, utcNow.Minute, 0);
+            var utcNowTime = utcNow.TimeOfDay;
             var botsToTweet = alivedBots
                 .Where(bot => bot.GetTweetTimingsUTC().Any(t => Math.Abs((t - utcNowTime).TotalMinutes) <= BUFF))
                 .ToList();
 
+            // prepare message to next tweet.
             var twitterAuthOpt = JsonConvert.DeserializeObject<TwitterAuthenticationOptions>(AppSettings.Key.Twitter);
-            botsToTweet.ForEach(bot => bot.Init(twitterAuthOpt.ConsumerKey, twitterAuthOpt.ConsumerSecret));
+            botsToTweet.ForEach(bot =>
+            {
+                bot.Init(twitterAuthOpt.ConsumerKey, twitterAuthOpt.ConsumerSecret);
+                bot.MessageToNextTweet = bot.GetMessageToNextTweet();
+            });
 
-            var tweetTasks = botsToTweet
-                .Select(bot => bot.GetMessageToNextTweet())
-                .Where(msg => msg != null)
-                .Select(msg =>
-                {
-                    msg.AtLastTweeted = utcNow;
-                    return msg.Bot.TweetAsync(msg.Text);
-                })
-                .ToArray();
-
+            // at 1st, execute extension scripts for take a chance to modify messages.
             var scriptTasks = botsToTweet
                 .SelectMany(bot => bot.ExtensionScripts)
                 .Where(script => script.Enabled)
                 .Select(script => script.ExecuteAsync())
                 .ToArray();
+            try
+            {
+                await Task.WhenAll(scriptTasks);
+            }
+            catch (Exception ex)
+            {
+                UnhandledExceptionLogger.Write(ex);
+            }
 
-            await Task.WhenAll(tweetTasks.Union(scriptTasks));
+            // 2nd, tweet scheduled messages.
+            var tweetTasks = botsToTweet
+                .Where(bot => bot.MessageToNextTweet != null)
+                .Select(bot =>
+                {
+                    bot.MessageToNextTweet.AtLastTweeted = utcNow;
+                    var text = bot.AvoidDupulicateText(bot.MessageToNextTweet.Text);
+                    return bot.TweetAsync(text);
+                })
+                .ToArray();
+            try
+            {
+                await Task.WhenAll(tweetTasks);
+            }
+            catch (Exception ex)
+            {
+                UnhandledExceptionLogger.Write(ex);
+            }
 
+            // next, sweep old journals.
+            botsToTweet.SelectMany(bot => 
+                bot.MessageJournals
+                    .OrderByDescending(j => j.TweetAt)
+                    .Skip(10)
+            ).ToList()
+            .ForEach(j => this.DB.MessageJournals.Remove(j));
+
+            // at last, flush chnaging of DB.
             await this.DB.SaveChangesAsync();
 
             return new EmptyResult();
