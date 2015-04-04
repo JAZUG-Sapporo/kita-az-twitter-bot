@@ -84,6 +84,8 @@ h2 {
     h2 .profile-image {
         vertical-align: middle;
         border-radius: 8px;
+        width: 48px;
+        height: 48px;
     }
 
 .caption-with-commands {
@@ -177,6 +179,8 @@ dd {
     vertical-align: middle;
     margin-right: 0.3em;
     border-radius: 12px;
+    width: 24px;
+    height: 24px;
 }
 
 .script.disabled .contents {
