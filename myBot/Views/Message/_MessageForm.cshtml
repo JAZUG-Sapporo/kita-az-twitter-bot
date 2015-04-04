@@ -1,34 +1,32 @@
 ﻿@model myBot.Models.Message
 
-<h2>@Model.BotID</h2>
+@Html.Partial("_BotNameTitle", Model.BotID)
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => m.BotID)
+<div class="row">
+    <h4 class="col s12">@ViewBag.Title</h4>
 
-    <div class="form-horizontal">
-        <h4>@ViewBag.Title</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Text, htmlAttributes: new { @class = "form-control", autofocus = "", rows = 7 })
+    @Html.HiddenFor(m => m.Text, new { id = "original-text" })
+
+    <form class="col s12" method="post" action="@Url.RouteUrl("Message", this.ViewContext.RouteData.Values)" 
+          ng-app="myBot" 
+          ng-controller="TweetTextController as ctrl">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.BotID)
+
+        <div class="row">
+
+            <div class="input-field col s12">
+                @Html.TextAreaFor(model => model.Text, htmlAttributes: new { @class = "materialize-textarea", autofocus = "", ng_model = "text" })
+                @Html.LabelFor(model => model.Text)
                 @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+                <div ng-bind="text|charcounter:140" ng-class="{'char-counter':true, lv1:(text|charcounter:140) < 21, lv2:(text|charcounter:140) < 11}"></div>
+            </div>
+
+            <div class="input-field col s12">
+                <button type="submit" class="btn waves-effect" ng-disabled="(text|charcounter:140) < 0 || text == ''">
+                    @_Localize.Save
+                </button>
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="@_Localize.Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink(_Localize.Back, "Details", "Bot", new { id = Model.BotID }, null)
+    </form>
 </div>
-
-

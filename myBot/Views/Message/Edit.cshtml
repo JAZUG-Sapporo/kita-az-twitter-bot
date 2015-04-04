@@ -1,6 +1,8 @@
 ﻿@model myBot.Models.Message
 @{
     ViewBag.Title = _Localize.EditMessage;
+    ViewBag.GoBackURL = Url.RouteUrl("Default", new { controller = "Bot", action = "Details", id = Model.BotID });
+    ViewBag.GoBackText = _Localize.Back;
 }
 
 @Html.Partial("_MessageForm", Model)

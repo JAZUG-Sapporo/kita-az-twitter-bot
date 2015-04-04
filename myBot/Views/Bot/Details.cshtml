@@ -2,151 +2,161 @@
 
 @{
     ViewBag.Title = "Details";
+    ViewBag.GoBackURL = Url.Action("Index");
+    ViewBag.GoBackText = "Back to List";
 }
 
-<h2>@Model.BotID</h2>
+@Html.Partial("_BotNameTitle", Model.BotID)
 
-<form id="bot-status-holder" action="@Url.Action("ChangeEnable", new { id = Model.BotID })" class="bot-enabled-@Model.Enabled.ToString().ToLower()">
-    <div class="bot-disabled">
-        <button id="btn-make-enable" class="btn btn-danger btn-block" data-confirm="@_Localize.AreYouSureToEnablingThisBot">
-            @_Localize.Disabled
-        </button>
-    </div>
-    <div class="bot-enabled">
-        <button id="btn-make-disable" class="btn btn-primary btn-block" data-confirm="@_Localize.AreYouSureToDisablingThisBot">
-            @_Localize.Enabled
-        </button>
-    </div>
-</form>
-
-<hr />
-
-<div>
-    <h4>@_Localize.TweetTiming</h4>
-    <dl class="dl-horizontal">
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeZone)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TimeZone)
-        </dd>
-
-        <dt>
-            @_Localize.TweetWhile
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.BeginTime)
-            -
-            @Html.DisplayFor(model => model.EndTime)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Duration)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Duration) @_Localize.Minutes
-        </dd>
-        <dt></dt>
-        <dd>
-            @Html.ActionLink(_Localize.ChangeTweetTiming, "Edit", new { id = Model.BotID })
-        </dd>
-    </dl>
-</div>
-
-<hr />
-
-<div>
-    <h4>@_Localize.ScheduledMessages</h4>
-    <div id="messages-holder" class="deletable-item-holder" data-confirm-delete="@_Localize.ConfirmDeleteMessage">
-        @foreach (var message in Model.Messages.OrderBy(m => m.Order))
-        {
-            <div class="message deletable-item">
-                <div class="col-md-9">
-                    @Html.DisplayFor(modelItem => message.Text)
-                </div>
-                <div class="col-md-3">
-                    @Html.RouteLink(_Localize.Edit, "Message", new { action = "Edit", id = Model.BotID, messageID = message.MessageID }) |
-                    @Html.RouteLink(_Localize.Up, "Message", new { action = "Up", id = Model.BotID, messageID = message.MessageID }, new { @class = "up" }) |
-                    @Html.RouteLink(_Localize.Down, "Message", new { action = "Down", id = Model.BotID, messageID = message.MessageID }, new { @class = "down" }) |
-                    @Html.RouteLink(_Localize.Delete, "Message", new { action = "Delete", id = Model.BotID, messageID = message.MessageID }, new { @class = "delete" })
-                </div>
-            </div>
-        }
-    </div>
-    <div>
-        @Html.RouteLink(_Localize.AddMessage, "Message", new { action = "Create", id = Model.BotID })
-    </div>
-</div>
-
-<hr />
-
-<div>
-    <h4>@_Localize.BotMasters</h4>
-    <div class="deletable-item-holder" data-confirm-delete="@_Localize.ConfirmDeleteBotMaster">
-        @foreach (var botMaster in Model.BotMasters.OrderBy(m => m.MasterID))
-        {
-            <div class="deletable-item">
-                <div class="col-md-9">
-                    @@@Html.DisplayFor(modelItem => botMaster.MasterID)
-                </div>
-                <div class="col-md-3">
-                    @Html.RouteLink(_Localize.Delete, "BotMaster", new { action = "Delete", id = Model.BotID, masterID = botMaster.MasterID }, new { @class = "delete" })
-                </div>
-            </div>
-        }
-    </div>
-    <div>
-        @Html.RouteLink(_Localize.AddBotMaster, "BotMaster", new { action = "Create", id = Model.BotID })
-    </div>
-</div>
-
-<hr />
-
-<div>
-    <h4>@_Localize.ExtensionScripts</h4>
-    <div class="deletable-item-holder" data-confirm-delete="@_Localize.ConfirmDeleteBotMaster">
-        @foreach (var script in Model.ExtensionScripts.OrderBy(m => m.ScriptID))
-        {
-            <div class="deletable-item">
-                <div class="col-md-9">
-                    @Html.DisplayFor(modelItem => script.Title)
-                </div>
-                <div class="col-md-3">
-                    @Html.RouteLink(_Localize.Edit, "ExtensionScript", new { action = "Edit", id = Model.BotID, scriptID = script.ScriptID }) |
-                    @Html.RouteLink(_Localize.Delete, "ExtensionScript", new { action = "Delete", id = Model.BotID, scriptID = script.ScriptID }, new { @class = "delete" })
-                </div>
-            </div>
-        }
-    </div>
-    <div>
-        @Html.RouteLink(_Localize.AddExtesionScript, "ExtensionScript", new { action = "Create", id = Model.BotID })
-    </div>
-</div>
-
-<hr />
-
-<h4>Tweet as the Bot</h4>
-<form id="tweet-as-the-bot-form" action="@Url.Action("TweetAsTheBot", new { id = Model.BotID })" method="post">
-    <div class="form-horizontal">
-        <div class="form-group">
-            <label for="text" class="control-label col-md-2">Text</label>
-            <div class="col-md-10">
-                <textarea name="text" class="form-control"></textarea>
-            </div>
+<div class="row">
+    <form id="bot-status-holder" action="@Url.Action("ChangeEnable", new { id = Model.BotID })" class="bot-enabled-@Model.Enabled.ToString().ToLower()">
+        <div class="bot-disabled">
+            <button id="btn-make-enable" class="btn red darken-2 col s12 waves-effect" data-confirm="@_Localize.AreYouSureToEnablingThisBot">
+                @_Localize.Disabled
+            </button>
         </div>
+        <div class="bot-enabled">
+            <button id="btn-make-disable" class="btn blue darken-1 col s12 waves-effect" data-confirm="@_Localize.AreYouSureToDisablingThisBot">
+                @_Localize.Enabled
+            </button>
+        </div>
+    </form>
+</div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input id="tweet" type="submit" value="Tweet" class="btn btn-primary" />
+@* ScheduledMessages *@
+<div class="row">
+    <div class="col s12">
+        <div class="caption-with-commands">
+            <h4>@_Localize.ScheduledMessages</h4>
+            <a href="@Url.RouteUrl("Message", new { action = "Create", id = Model.BotID })" title="@_Localize.AddMessage" class="btn-floating btn-flat waves-effect teal lighten-1">
+                <i class="mdi-content-add"></i>
+            </a>
+        </div>
+        <div id="messages-holder" class="deletable-item-holder" data-confirm-delete="@_Localize.ConfirmDeleteMessage">
+            @foreach (var message in Model.Messages.OrderBy(m => m.Order))
+            {
+                <div class="message deletable-item">
+                    <div class="contents">
+                        @Html.Raw(Html.Encode(message.Text)
+                        .Replace("\n", "<br/>")
+                        .Replace(" ", "&nbsp;"))
+                    </div>
+                    <div class="commands">
+                        @Html.RouteLink(_Localize.Edit, "Message", new { action = "Edit", id = Model.BotID, messageID = message.MessageID }) |
+                        @Html.RouteLink(_Localize.Up, "Message", new { action = "Up", id = Model.BotID, messageID = message.MessageID }, new { @class = "up" }) |
+                        @Html.RouteLink(_Localize.Down, "Message", new { action = "Down", id = Model.BotID, messageID = message.MessageID }, new { @class = "down" }) |
+                        @Html.RouteLink(_Localize.Delete, "Message", new { action = "Delete", id = Model.BotID, messageID = message.MessageID }, new { @class = "delete" })
+                    </div>
+                </div>
+            }
+        </div>
+    </div></div>
+
+<div class="row">
+
+    @* Tweet as the Bot *@
+    <div class="col s12 l6" ng-app="myBot" ng-controller="TweetTextController as ctrl">
+        <h4>Tweet as the Bot</h4>
+
+        <form id="tweet-as-the-bot-form" action="@Url.Action("TweetAsTheBot", new { id = Model.BotID })" method="post">
+            <div class="input-field col s12">
+                <textarea id="text" name="text" class="materialize-textarea" ng-model="text"></textarea>
+                <label for="text">Text to Tweet</label>
+                <div ng-bind="text|charcounter:140" ng-class="{'char-counter':true, lv1:(text|charcounter:140) < 21, lv2:(text|charcounter:140) < 11}"></div>
             </div>
+
+            <div class="input-field col s12">
+                <button id="tweet" type="submit" class="btn waves-effect" ng-disabled="(text|charcounter:140) < 0 || text == ''">
+                    Tweet
+                </button>
+            </div>
+        </form>
+    </div>
+
+    @* TweetTiming *@
+    <div class="col s12 l6">
+        <div class="caption-with-commands">
+            <h4>@_Localize.TweetTiming</h4>
+            <a href="@Url.Action("Edit", new { id = Model.BotID })" title="@_Localize.ChangeTweetTiming" class="btn-floating btn-flat waves-effect waves-light teal lighten-1">
+                <i class="mdi-content-create"></i>
+            </a>
+        </div>
+        <dl>
+            <dt>
+                @_Localize.TweetWhile
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.BeginTime)
+                -
+                @Html.DisplayFor(model => model.EndTime)
+                <span class="time-zone">@Html.DisplayFor(model => model.TimeZone)</span>
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Duration)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Duration) @_Localize.Minutes
+            </dd>
+            <dt></dt>
+        </dl>
+    </div>
+
+</div>
+
+
+<div class="row">
+
+    @* BotMasters *@
+    <div class="col s12 l6">
+        <div class="caption-with-commands">
+            <h4>@_Localize.BotMasters</h4>
+            <a href="@Url.RouteUrl("BotMaster", new { action = "Create", id = Model.BotID })" title="@_Localize.AddBotMaster" class="btn-floating btn-flat waves-effect teal lighten-1">
+                <i class="mdi-content-add"></i>
+            </a>
+        </div>
+        <div class="deletable-item-holder" data-confirm-delete="@_Localize.ConfirmDeleteBotMaster">
+            @foreach (var botMaster in Model.BotMasters.OrderBy(m => m.MasterID))
+            {
+                <div class="deletable-item bot-master">
+                    <div class="contents">
+                        <img src="~/icon/mini/@botMaster.MasterID" class="profile-image" />
+                        @@@Html.DisplayFor(modelItem => botMaster.MasterID)
+                    </div>
+                    <div class="commands">
+                        @Html.RouteLink(_Localize.Delete, "BotMaster", new { action = "Delete", id = Model.BotID, masterID = botMaster.MasterID }, new { @class = "delete" })
+                    </div>
+                </div>
+            }
         </div>
     </div>
-</form>
 
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    @* ExtensionScripts *@
+    <div class="col s12 l6">
+        <div class="caption-with-commands">
+            <h4>@_Localize.ExtensionScripts</h4>
+            <a href="@Url.RouteUrl("ExtensionScript", new { action = "Create", id = Model.BotID })" title="@_Localize.AddExtesionScript" class="btn-floating btn-flat waves-effect teal lighten-1">
+                <i class="mdi-content-add"></i>
+            </a>
+        </div>
+
+        <div class="deletable-item-holder" data-confirm-delete="@_Localize.ConfirmDeleteBotMaster">
+            @foreach (var script in Model.ExtensionScripts.OrderBy(m => m.ScriptID))
+            {
+                <div class="script deletable-item @(script.Enabled ? "" : "disabled")">
+                    <div class="contents">
+                        @Html.DisplayFor(modelItem => script.Title)
+                    </div>
+                    <div class="commands">
+                        @Html.RouteLink(_Localize.Edit, "ExtensionScript", new { action = "Edit", id = Model.BotID, scriptID = script.ScriptID }) |
+                        @Html.RouteLink(_Localize.Delete, "ExtensionScript", new { action = "Delete", id = Model.BotID, scriptID = script.ScriptID }, new { @class = "delete" })
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
 
 @section scripts{
     <script src="~/Scripts/jquery.form.min.js"></script>

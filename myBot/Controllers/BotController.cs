@@ -204,5 +204,14 @@ namespace myBot.Controllers
 
             return new EmptyResult();
         }
+
+        public ActionResult Action()
+        {
+            var twitterAuthOpt = JsonConvert.DeserializeObject<TwitterAuthenticationOptions>(AppSettings.Key.Twitter);
+            var token = CoreTweet.OAuth2.GetToken(twitterAuthOpt.ConsumerKey, twitterAuthOpt.ConsumerSecret);
+            var imageUrl = token.Users.Show(screen_name => "jsakamoto").ProfileImageUrl;
+
+            return Content(imageUrl.ToString());
+        }
     }
 }

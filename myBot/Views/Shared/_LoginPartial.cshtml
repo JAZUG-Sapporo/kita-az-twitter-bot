@@ -1,12 +1,7 @@
 ﻿@using Microsoft.AspNet.Identity
-<form class="visible-if-signedin navbar-right" id="signOutForm" action="@Url.Action("SignOut", "Account")" method="post">
+<form class="visible-if-signedin" id="signOutForm" action="@Url.Action("SignOut", "Account")" method="post">
     @Html.AntiForgeryToken()
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            <a class="user-name">@@@User.Identity.GetUserName()</a>
-        </li>
-        <li>
-            <a href="javascript:document.getElementById('signOutForm').submit()">@_Localize.SignOut</a>
-        </li>
-    </ul>
+    <span class="user-name">@@@User.Identity.GetUserName()</span>
+    |
+    <a href="javascript:if(confirm('Are you sure?'))document.getElementById('signOutForm').submit()">@_Localize.SignOut</a>
 </form>

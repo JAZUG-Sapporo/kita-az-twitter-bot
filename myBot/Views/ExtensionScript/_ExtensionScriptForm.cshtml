@@ -3,60 +3,64 @@
 @{
     var langList = new SelectList(ExtensionScript.GetSupportedLanguageNames(), Model.Language);
 }
-<h2>@Model.BotID</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => m.BotID)
-    @Html.HiddenFor(m => m.TargetEvent)
+@Html.Partial("_BotNameTitle", Model.BotID)
 
-    <div class="form-horizontal">
-        <h4>@ViewBag.Title</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", autofocus = "" } })
+<div class="row">
+
+    <h4 class="col s12">@ViewBag.Title</h4>
+
+
+    <form class="col s12" method="post">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.BotID)
+        @Html.HiddenFor(m => m.TargetEvent)
+
+        <div class="row">
+
+            <div class="input-field col s12">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { autofocus = "" } })
+                @Html.LabelFor(model => model.Title)
                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Enabled, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="checkbox col-md-10">
-                @Html.EditorFor(model => model.Enabled)
-                @Html.LabelFor(model => model.Enabled, "Yes")
-                @Html.ValidationMessageFor(model => model.Enabled, "", new { @class = "text-danger" })
+            <div class="input-field col s12 m7">
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Language, langList, new { @class = "form-control" })
+                    @Html.LabelFor(model => model.Language)
+                    @Html.ValidationMessageFor(model => model.Language, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="input-field col s12 m5">
+                <div class="switch" style="height:2em;">
+                    <label>
+                        Disabled
+                        <input type="checkbox" name="Enabled" value="true" @(Model.Enabled ? "checked" : "") />
+                        <span class="lever"></span>
+                        Enabled
+                    </label>
+                </div>
+                <input type="hidden" name="Enabled" value="false" />
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Language, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Language, langList, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Language, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ScriptBody, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.ScriptBody, new { @class = "form-control", width = "100%", rows = 20 })
+        <div class="row">
+            <div class="input-field col s12">
+                @Html.TextAreaFor(model => model.ScriptBody, new { @class = "materialize-textarea" })
+                @Html.LabelFor(model => model.ScriptBody)
                 @Html.ValidationMessageFor(model => model.ScriptBody, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="@_Localize.Save" class="btn btn-default" />
+        <div class="row">
+            <div class="col s12">
+                <button type="submit" class="btn waves-effect">
+                    @_Localize.Save
+                </button>
             </div>
         </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink(_Localize.Back, "Details", "Bot", new { id = Model.BotID }, null)
+    </form>
 </div>
+
