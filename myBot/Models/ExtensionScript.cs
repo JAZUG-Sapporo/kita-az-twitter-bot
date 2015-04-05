@@ -52,14 +52,25 @@ namespace myBot.Models
         {
             return Task.Run(() =>
             {
-                var scriptRuntime = ScriptRuntime.CreateFromConfiguration();
-                var engine = scriptRuntime.GetEngine(this.Language);
-                var scope = scriptRuntime.CreateScope();
-                scope.SetVariable("theBot", this.Bot);
-                engine.Execute(this.ScriptBody, scope);
+                Execute(this.Bot, this.Language, this.ScriptBody);
 
                 return new CoreTweet.Status();
             });
+        }
+
+        public static void Execute(Bot bot, string language, string scriptText)
+        {
+            var scriptRuntime = ScriptRuntime.CreateFromConfiguration();
+            var engine = scriptRuntime.GetEngine(language);
+            var scope = scriptRuntime.CreateScope();
+            
+            var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(bot.TimeZone);
+            var localTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+
+            scope.SetVariable("theBot", bot);
+            scope.SetVariable("localTime", localTime.ToString("yyyy/MM/dd HH:mm:ss"));
+            
+            engine.Execute(scriptText, scope);
         }
     }
 }

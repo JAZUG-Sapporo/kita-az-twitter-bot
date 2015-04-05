@@ -11,8 +11,11 @@
 
     <h4 class="col s12">@ViewBag.Title</h4>
 
+    @Html.HiddenFor(model => model.Language, new { id = "original-language" })
+    @Html.HiddenFor(model => model.ScriptBody, new { id = "original-text" })
 
-    <form class="col s12" method="post">
+
+    <form class="col s12" method="post" action="@Url.RouteUrl("ExtensionScript", ViewContext.RouteData.Values)" ng-app="myBot" ng-controller="ExtensionScriptFormController as ctrl">
         @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.BotID)
         @Html.HiddenFor(m => m.TargetEvent)
@@ -27,7 +30,7 @@
 
             <div class="input-field col s12 m7">
                 <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.Language, langList, new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.Language, langList, new { @class = "form-control", ng_model = "language" })
                     @Html.LabelFor(model => model.Language)
                     @Html.ValidationMessageFor(model => model.Language, "", new { @class = "text-danger" })
                 </div>
@@ -46,11 +49,43 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="input-field col s12">
-                @Html.TextAreaFor(model => model.ScriptBody, new { @class = "materialize-textarea" })
+        <div class="row script-box">
+
+            @* Script Text *@
+            <div class="input-field col s12 m8 script-text">
+                @Html.TextAreaFor(model => model.ScriptBody, new { @class = "materialize-textarea", ng_model = "scriptText" })
                 @Html.LabelFor(model => model.ScriptBody)
                 @Html.ValidationMessageFor(model => model.ScriptBody, "", new { @class = "text-danger" })
+            </div>
+
+            @* Test Run *@
+            <div class="input-field col s12 m4 testrun-box">
+                <button id="btn-testrun" type="button" class="btn waves-effect" ng-click="ctrl.ExecuteTestRun()" ng-disabled="testRunResult.status == 'Running'">
+                    Test Run
+                </button>
+                <div>
+                    <label>Status: </label>
+                    <span ng-class="'status ' + testRunResult.status" ng-bind="testRunResult.status">
+                    </span>
+                </div>
+
+                <div class="spinner" ng-show="testRunResult.status == 'Running'">
+                    <img src="~/Content/images/spinner-48.gif" />
+                </div>
+
+                <div ng-show="testRunResult.status == 'Success'">
+                    <label>Tweet text:</label>
+                    <div>
+                        <div class="tweet-text" ng-repeat="text in testRunResult.tweetTexts" ng-bind="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="testRunResult.status == 'Error'">
+                    <label>Error message:</label>
+                    <div ng-bind="testRunResult.errmsg"></div>
+                </div>
+
             </div>
         </div>
 
@@ -63,4 +98,9 @@
         </div>
     </form>
 </div>
-
+<script>
+    var myBot;
+    (function (myBot) {
+        myBot.testRunURL = '@Url.RouteUrl("ExtensionScript", new { id = Model.BotID, action = "ExecuteTestRun" })';
+    })(myBot || (myBot = {}));
+</script>

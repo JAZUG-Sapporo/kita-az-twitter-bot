@@ -214,7 +214,46 @@ dd {
 
 
 /* Extension Script Editor*/
-/*label[for=Language] {
-    top: 0;
-    font-size: 0.8rem;
-}*/
+.script-box .script-text {
+    padding-right: 40px;
+}
+
+    .script-box .script-text textarea {
+        font-family: Consolas;
+    }
+
+.script-box .testrun-box label {
+    position: static;
+}
+
+.script-box .testrun-box .status.Not.Run {
+    color: #9e9e9e;
+}
+
+.script-box .testrun-box .status.Success {
+    color: #0026ff;
+}
+
+.script-box .testrun-box .status.Error {
+    color: #D40D12;
+}
+
+.script-box .testrun-box .spinner {
+    text-align:center;
+}
+
+.script-box .testrun-box .tweet-text {
+    border-top: solid 1px #ccc;
+    margin-top: 0.5em;
+    padding-top: 0.5em;
+}
+
+    .script-box .testrun-box .tweet-text:first-child {
+        border-top: none;
+        margin-top: 0;
+        padding-top: 0;
+    }
+
+#btn-testrun {
+    width: 100%;
+}

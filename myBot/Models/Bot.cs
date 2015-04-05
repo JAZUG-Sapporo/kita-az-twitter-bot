@@ -42,6 +42,8 @@ namespace myBot.Models
         [NotMapped]
         public Message MessageToNextTweet { get; set; }
 
+        public Func<string, CoreTweet.Status> HookTweet { get; set; }
+
         public Bot()
         {
             this.Enabled = false;
@@ -86,16 +88,20 @@ namespace myBot.Models
             this.ConsumerSecret = consumerSecret;
         }
 
-        public CoreTweet.StatusResponse Tweet(string text)
+        public CoreTweet.Status Tweet(string text)
         {
-            return this.TweetAsync(text).Result as CoreTweet.StatusResponse;
+            return this.HookTweet != null ? 
+                this.HookTweet(text) :
+                this.TweetAsync(text).Result;
         }
 
         public Task<CoreTweet.Status> TweetAsync(string text)
         {
-            return this.Token.Statuses
-                .UpdateAsync(status => text)
-                .ContinueWith(s => (CoreTweet.Status)s.Result);
+            return this.HookTweet != null ?
+                new Task<CoreTweet.Status>(() => this.HookTweet(text)) :
+                this.Token.Statuses
+                    .UpdateAsync(status => text)
+                    .ContinueWith(s => (CoreTweet.Status)s.Result);
         }
     }
 }

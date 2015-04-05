@@ -291,6 +291,7 @@
     <Content Include="Content\favicons\mstile-70x70.png" />
     <Content Include="Content\fonts\material-design-icons\LICENSE.txt" />
     <Content Include="Content\fonts\material-design-icons\Material-Design-Icons.svg" />
+    <Content Include="Content\images\spinner-48.gif" />
     <Content Include="Content\materialize.css" />
     <Content Include="Content\materialize.min.css" />
     <Content Include="favicon.ico" />
@@ -1080,6 +1081,7 @@
     <Content Include="Scripts\jquery.form.min.js.map" />
     <Content Include="Views\Bot\Edit.cshtml" />
     <Content Include="Views\Bot\messages.js" />
+    <Content Include="Views\ExtensionScript\extensionscript-form.js" />
     <Content Include="Views\Shared\EditorTemplates\TimeZone.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\TimeZone.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Time.cshtml" />
@@ -1115,6 +1117,7 @@
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\mybot-common.js.map" />
     <Content Include="Views\Shared\_BotNameTitle.cshtml" />
+    <Content Include="Views\ExtensionScript\extensionscript-form.js.map" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -1191,6 +1194,7 @@
     <TypeScriptCompile Include="Views\Bot\delete-item.ts" />
     <TypeScriptCompile Include="Views\Bot\messages.ts" />
     <TypeScriptCompile Include="Views\Bot\tweet-as-the-bot.ts" />
+    <TypeScriptCompile Include="Views\ExtensionScript\extensionscript-form.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
