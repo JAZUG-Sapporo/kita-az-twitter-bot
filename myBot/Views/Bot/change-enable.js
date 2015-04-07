@@ -18,4 +18,3 @@ $(function () {
     $('#btn-make-enable').click(function (e) { return changeStatus(e, true); });
     $('#btn-make-disable').click(function (e) { return changeStatus(e, false); });
 });
-//# sourceMappingURL=change-enable.js.map

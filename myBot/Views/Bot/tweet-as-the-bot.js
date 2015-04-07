@@ -1,5 +1,3 @@
-/// <reference path="../../scripts/typings/jquery/jquery.d.ts" />
-/// <reference path="../../scripts/typings/jquery.form/jquery.form.d.ts" />
 $(function () {
     $('#tweet-as-the-bot-form').ajaxForm({
         success: function () {
@@ -10,4 +8,3 @@ $(function () {
         }
     });
 });
-//# sourceMappingURL=tweet-as-the-bot.js.map

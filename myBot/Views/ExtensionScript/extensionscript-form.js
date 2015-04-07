@@ -19,4 +19,3 @@ var myBot;
     })();
     app.controller('ExtensionScriptFormController', ExtensionScriptFormController);
 })(myBot || (myBot = {}));
-//# sourceMappingURL=extensionscript-form.js.map

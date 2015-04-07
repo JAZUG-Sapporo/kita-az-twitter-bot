@@ -1,5 +1,4 @@
 $(function () {
-    // Delete item via XHR
     $(document).on('click', '.deletable-item-holder .delete', function (e) {
         e.preventDefault();
         var $target = $(e.target);
@@ -18,4 +17,3 @@ $(function () {
         });
     });
 });
-//# sourceMappingURL=delete-item.js.map

@@ -14,4 +14,3 @@ var myBot;
     })();
     app.controller('TweetTextController', TweetTextController);
 })(myBot || (myBot = {}));
-//# sourceMappingURL=mybot-common.js.map
