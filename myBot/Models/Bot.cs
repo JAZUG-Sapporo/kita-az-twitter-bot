@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace myBot.Models
 {
@@ -90,18 +89,31 @@ namespace myBot.Models
 
         public CoreTweet.Status Tweet(string text)
         {
-            return this.HookTweet != null ? 
+            return this.HookTweet != null ?
                 this.HookTweet(text) :
                 this.TweetAsync(text).Result;
         }
 
-        public Task<CoreTweet.Status> TweetAsync(string text)
+        public async Task<CoreTweet.Status> TweetAsync(string text)
         {
-            return this.HookTweet != null ?
-                new Task<CoreTweet.Status>(() => this.HookTweet(text)) :
-                this.Token.Statuses
-                    .UpdateAsync(status => text)
-                    .ContinueWith(s => (CoreTweet.Status)s.Result);
+            if (this.HookTweet != null) return this.HookTweet(text);
+
+            // http://stackoverflow.com/questions/26388615/could-not-create-ssl-tls-secure-channel-for-facebook?answertab=votes#tab-top
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+            try
+            {
+                var stat = await this.Token
+                    .Statuses
+                    .UpdateAsync(status => text);
+                return stat;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(
+                    message: "Unhandled Exception at tweeting:\r\n" + text,
+                    innerException: e);
+            }
         }
     }
 }
