@@ -22,6 +22,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <TypeScriptToolsVersion>1.4</TypeScriptToolsVersion>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -304,6 +305,7 @@
     <Content Include="Content\favicons\mstile-70x70.png" />
     <Content Include="Content\fonts\material-design-icons\LICENSE.txt" />
     <Content Include="Content\fonts\material-design-icons\Material-Design-Icons.svg" />
+    <Content Include="Content\images\no-image.png" />
     <Content Include="Content\images\spinner-48.gif" />
     <Content Include="Content\materialize.css" />
     <Content Include="Content\materialize.min.css" />
