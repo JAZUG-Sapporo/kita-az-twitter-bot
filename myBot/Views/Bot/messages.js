@@ -1,5 +1,7 @@
 $(function () {
     var $messagesHolder = $('#messages-holder');
+    // * Deleting message is supported by 'delete-item.ts'.
+    // Up/Down message order
     $(document).on('click', '#messages-holder .up,#messages-holder .down', function (e) {
         e.preventDefault();
         var $target = $(e.target);
@@ -18,3 +20,4 @@ $(function () {
         });
     });
 });
+//# sourceMappingURL=messages.js.map
