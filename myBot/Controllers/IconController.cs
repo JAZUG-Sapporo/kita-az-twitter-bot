@@ -31,10 +31,10 @@ namespace myBot.Controllers
                 switch (iconSize)
                 {
                     case IconSize.Mini:
-                        imageUrl = new Uri(Regex.Replace(imageUrl.ToString(), @"_normal\.png$", "_mini.png", RegexOptions.IgnoreCase));
+                        imageUrl = Regex.Replace(imageUrl.ToString(), @"_normal\.png$", "_mini.png", RegexOptions.IgnoreCase);
                         break;
                     case IconSize.Large:
-                        imageUrl = new Uri(Regex.Replace(imageUrl.ToString(), @"_normal\.png$", "_bigger.png", RegexOptions.IgnoreCase));
+                        imageUrl = Regex.Replace(imageUrl.ToString(), @"_normal\.png$", "_bigger.png", RegexOptions.IgnoreCase);
                         break;
                     default:
                         break;
