@@ -43,7 +43,7 @@ namespace myBot.Controllers
             }
             catch (TwitterException e)
             {
-                if (e.Status != HttpStatusCode.NotFound) throw;
+                if (e.Status != HttpStatusCode.NotFound && e.Status != HttpStatusCode.Forbidden) throw;
                 return System.IO.File.ReadAllBytes(this.Server.MapPath("~/Content/images/no-image.png"));
             }
         }
