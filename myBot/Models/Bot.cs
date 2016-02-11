@@ -90,18 +90,30 @@ namespace myBot.Models
 
         public CoreTweet.Status Tweet(string text)
         {
-            return this.HookTweet != null ? 
+            return this.HookTweet != null ?
                 this.HookTweet(text) :
                 this.TweetAsync(text).Result;
         }
 
-        public Task<CoreTweet.Status> TweetAsync(string text)
+        public async Task<CoreTweet.Status> TweetAsync(string text)
         {
-            return this.HookTweet != null ?
-                new Task<CoreTweet.Status>(() => this.HookTweet(text)) :
-                this.Token.Statuses
-                    .UpdateAsync(status => text)
-                    .ContinueWith(s => (CoreTweet.Status)s.Result);
+            try
+            {
+                var result = default(CoreTweet.Status);
+                if (this.HookTweet != null)
+                {
+                    result = HookTweet(text);
+                }
+                else
+                {
+                    result = await this.Token.Statuses.UpdateAsync(status => text);
+                }
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Unhandled exception when tweeting '{text}'", innerException: e);
+            }
         }
     }
 }
