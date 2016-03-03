@@ -129,6 +129,12 @@
   <data name="AppTitle" xml:space="preserve">
     <value>myBot</value>
   </data>
+  <data name="Archive" xml:space="preserve">
+    <value>Archive</value>
+  </data>
+  <data name="ArchivedMessages" xml:space="preserve">
+    <value>Archived Messages</value>
+  </data>
   <data name="AreYouSureToDisablingThisBot" xml:space="preserve">
     <value>Are you sure to disabling this bot?</value>
   </data>
@@ -143,6 +149,9 @@
   </data>
   <data name="ChangeTweetTiming" xml:space="preserve">
     <value>Change tweet timing</value>
+  </data>
+  <data name="ConfirmArchiveMessage" xml:space="preserve">
+    <value>Are you sure to archiving this message?</value>
   </data>
   <data name="ConfirmDeleteBotMaster" xml:space="preserve">
     <value>Are you sure to deleteing this bot master?</value>

@@ -39,6 +39,14 @@ namespace myBot.Controllers
             return View(bot);
         }
 
+        // GET: Bot/Archives/foo
+        public ActionResult Archives(string id)
+        {
+            var bot = this.DB.Bots.GetById(this.User, id);
+            if (bot == null) return HttpNotFound();
+            return View(bot);
+        }
+
         // GET: Bot/Create
         public ActionResult Create()
         {
@@ -172,7 +180,7 @@ namespace myBot.Controllers
                 .Include("ExtensionScripts")
                 .Where(bot => bot.Enabled)
                 .Where(bot => bot.BotMasters.Any())
-                .Where(bot => bot.Messages.Any() || bot.ExtensionScripts.Any())
+                .Where(bot => bot.Messages.Any(m => !m.IsArchived) || bot.ExtensionScripts.Any())
                 .ToArray();
 
             const int BUFF = 2;
