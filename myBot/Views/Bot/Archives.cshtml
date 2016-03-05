@@ -1,0 +1,41 @@
+﻿@model myBot.Models.Bot
+
+@{
+    ViewBag.Title = "Archives";
+    ViewBag.GoBackURL = Url.RouteUrl("Default", new { controller = "Bot", action = "Details", id = Model.BotID });
+    ViewBag.GoBackText = "Back to Details";
+}
+
+@Html.Partial("_BotNameTitle", Model.BotID)
+
+@* ArchivedMessages *@
+<div class="row">
+    <div class="col s12">
+        <div class="caption-with-commands">
+            <h4>@_Localize.ArchivedMessages</h4>
+        </div>
+        <div id="messages-holder" class="deletable-item-holder" data-confirm-archive="@_Localize.ConfirmArchiveMessage" data-confirm-delete="@_Localize.ConfirmDeleteMessage">
+            @foreach (var message in Model.Messages.Where(m => m.IsArchived).OrderBy(m => m.Order))
+            {
+                <div class="message deletable-item">
+                    <div class="contents">
+                        @Html.Raw(Html.Encode(message.Text)
+                        .Replace("\n", "<br/>")
+                        .Replace(" ", "&nbsp;"))
+                    </div>
+                    <div class="commands">
+                        @Html.RouteLink(_Localize.Delete, "Message", new { action = "Delete", id = Model.BotID, messageID = message.MessageID }, new { @class = "delete" })
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery.form.min.js"></script>
+    <script src="~/Views/Bot/tweet-as-the-bot.js"></script>
+    <script src="~/Views/Bot/change-enable.js"></script>
+    <script src="~/Views/Bot/messages.js"></script>
+    <script src="~/Views/Bot/delete-item.js"></script>
+}

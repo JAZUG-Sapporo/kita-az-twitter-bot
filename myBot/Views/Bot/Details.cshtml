@@ -31,9 +31,12 @@
             <a href="@Url.RouteUrl("Message", new { action = "Create", id = Model.BotID })" title="@_Localize.AddMessage" class="btn-floating btn-flat waves-effect teal lighten-1">
                 <i class="mdi-content-add"></i>
             </a>
+            <a href="@Url.Action("Archives", new { id = Model.BotID })" title="@_Localize.ArchivedMessages" class="right btn-floating btn-flat waves-effect teal lighten-1">
+                <i class="mdi-content-archive"></i>
+            </a>
         </div>
-        <div id="messages-holder" class="deletable-item-holder" data-confirm-delete="@_Localize.ConfirmDeleteMessage">
-            @foreach (var message in Model.Messages.OrderBy(m => m.Order))
+        <div id="messages-holder" class="deletable-item-holder" data-confirm-archive="@_Localize.ConfirmArchiveMessage" data-confirm-delete="@_Localize.ConfirmDeleteMessage">
+            @foreach (var message in Model.Messages.Where(m => !m.IsArchived).OrderBy(m => m.Order))
             {
                 <div class="message deletable-item">
                     <div class="contents">
@@ -45,7 +48,7 @@
                         @Html.RouteLink(_Localize.Edit, "Message", new { action = "Edit", id = Model.BotID, messageID = message.MessageID }) |
                         @Html.RouteLink(_Localize.Up, "Message", new { action = "Up", id = Model.BotID, messageID = message.MessageID }, new { @class = "up" }) |
                         @Html.RouteLink(_Localize.Down, "Message", new { action = "Down", id = Model.BotID, messageID = message.MessageID }, new { @class = "down" }) |
-                        @Html.RouteLink(_Localize.Delete, "Message", new { action = "Delete", id = Model.BotID, messageID = message.MessageID }, new { @class = "delete" })
+                        @Html.RouteLink(_Localize.Archive, "Message", new { action = "Archive", id = Model.BotID, messageID = message.MessageID }, new { @class = "archive" })
                     </div>
                 </div>
             }

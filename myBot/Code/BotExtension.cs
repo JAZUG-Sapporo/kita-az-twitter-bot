@@ -40,6 +40,7 @@ namespace myBot
         public static Message GetMessageToNextTweet(this Bot bot)
         {
             var messages = bot.Messages
+                .Where(m => !m.IsArchived)
                 .OrderBy(m => m.Order)
                 .ToArray();
 

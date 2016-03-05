@@ -23,5 +23,7 @@ namespace myBot.Models
         public DateTime? AtLastTweeted { get; set; }
 
         public virtual Bot Bot { get; set; }
+
+        public bool IsArchived { get; set; }
     }
 }

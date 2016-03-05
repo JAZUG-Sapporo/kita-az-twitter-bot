@@ -82,6 +82,22 @@ namespace myBot.Controllers
         }
 
         [HttpPost]
+        public async Task<ActionResult> Archive(string id, int messageID)
+        {
+            var bot = this.DB.Bots.GetById(this.User, id);
+            if (bot == null) return HttpNotFound();
+            var messages = bot.Messages.ToList();
+            var messageToArchive = messages.FirstOrDefault(m => m.MessageID == messageID);
+            if (messageToArchive == null) return HttpNotFound();
+
+            messageToArchive.IsArchived = true;
+
+            await this.DB.SaveChangesAsync();
+
+            return new EmptyResult();
+        }
+
+        [HttpPost]
         public async Task<ActionResult> Delete(string id, int messageID)
         {
             var bot = this.DB.Bots.GetById(this.User, id);
