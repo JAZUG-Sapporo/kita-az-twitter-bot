@@ -151,13 +151,13 @@
     <value>Change tweet timing</value>
   </data>
   <data name="ConfirmArchiveMessage" xml:space="preserve">
-    <value>Are you sure to archiving this message?</value>
+    <value>Are you sure to archive this message?</value>
   </data>
   <data name="ConfirmDeleteBotMaster" xml:space="preserve">
-    <value>Are you sure to deleteing this bot master?</value>
+    <value>Are you sure to delete this bot master?</value>
   </data>
   <data name="ConfirmDeleteMessage" xml:space="preserve">
-    <value>Are you sure to deleting this message?</value>
+    <value>Are you sure to delete this message?</value>
   </data>
   <data name="ConfirmRestoreMessage" xml:space="preserve">
     <value>Are you sure to restore this message?</value>
