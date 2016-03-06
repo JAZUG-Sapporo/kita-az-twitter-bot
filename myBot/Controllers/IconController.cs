@@ -24,9 +24,10 @@ namespace myBot.Controllers
         private byte[] GetProfileImage(string screenName, IconSize iconSize)
         {
             var twitterAuthOpt = JsonConvert.DeserializeObject<TwitterAuthenticationOptions>(AppSettings.Key.Twitter);
-            var token = CoreTweet.OAuth2.GetToken(twitterAuthOpt.ConsumerKey, twitterAuthOpt.ConsumerSecret);
             try
             {
+                var token = CoreTweet.OAuth2.GetToken(twitterAuthOpt.ConsumerKey, twitterAuthOpt.ConsumerSecret);
+
                 var imageUrl = token.Users.Show(screen_name => screenName).ProfileImageUrl;
                 switch (iconSize)
                 {

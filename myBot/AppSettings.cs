@@ -11,6 +11,32 @@ namespace myBot
             get { return ConfigurationManager.AppSettings["ClientValidationEnabled"]; }
         }
 
+        public static class Demo
+        {
+            public static string Enabled
+            {
+                get { return ConfigurationManager.AppSettings["demo:Enabled"]; }
+            }
+        }
+
+        public static class Errormail
+        {
+            public static string From
+            {
+                get { return ConfigurationManager.AppSettings["errormail:from"]; }
+            }
+
+            public static string Subject
+            {
+                get { return ConfigurationManager.AppSettings["errormail:subject"]; }
+            }
+
+            public static string To
+            {
+                get { return ConfigurationManager.AppSettings["errormail:to"]; }
+            }
+        }
+
         public static class Key
         {
             public static string Twitter
@@ -22,6 +48,22 @@ namespace myBot
         public static string Salt
         {
             get { return ConfigurationManager.AppSettings["Salt"]; }
+        }
+
+        public static class Site
+        {
+            public static string Timezone
+            {
+                get { return ConfigurationManager.AppSettings["site:timezone"]; }
+            }
+        }
+
+        public static class Smtp
+        {
+            public static string Config
+            {
+                get { return ConfigurationManager.AppSettings["smtp:config"]; }
+            }
         }
 
         public static string UnobtrusiveJavaScriptEnabled
