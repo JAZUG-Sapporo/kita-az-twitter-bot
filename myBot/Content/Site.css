@@ -257,3 +257,10 @@ dd {
 #btn-testrun {
     width: 100%;
 }
+
+/* ---- Bot/Archives ---- */
+.at-last-tweeted-title {
+    font-size: 90%;
+    color: #aaa;
+    margin-bottom: 0;
+}
