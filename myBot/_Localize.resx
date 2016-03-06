@@ -159,6 +159,9 @@
   <data name="ConfirmDeleteMessage" xml:space="preserve">
     <value>Are you sure to deleting this message?</value>
   </data>
+  <data name="ConfirmRestoreMessage" xml:space="preserve">
+    <value>Are you sure to restore this message?</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
@@ -182,6 +185,9 @@
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>Minutes</value>
+  </data>
+  <data name="Restore" xml:space="preserve">
+    <value>Restore</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>

@@ -35,7 +35,7 @@
                 <i class="mdi-content-archive"></i>
             </a>
         </div>
-        <div id="messages-holder" class="deletable-item-holder" data-confirm-archive="@_Localize.ConfirmArchiveMessage" data-confirm-delete="@_Localize.ConfirmDeleteMessage">
+        <div id="messages-holder" class="deletable-item-holder" data-confirm-archive="@_Localize.ConfirmArchiveMessage">
             @foreach (var message in Model.Messages.Where(m => !m.IsArchived).OrderBy(m => m.Order))
             {
                 <div class="message deletable-item">

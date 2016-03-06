@@ -187,6 +187,15 @@ namespace myBot {
         }
         
         /// <summary>
+        ///   Are you sure to restore this message? に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConfirmRestoreMessage {
+            get {
+                return ResourceManager.GetString("ConfirmRestoreMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Delete に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Delete {
@@ -255,6 +264,15 @@ namespace myBot {
         public static string Minutes {
             get {
                 return ResourceManager.GetString("Minutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Restore に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Restore {
+            get {
+                return ResourceManager.GetString("Restore", resourceCulture);
             }
         }
         

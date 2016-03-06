@@ -14,7 +14,7 @@
         <div class="caption-with-commands">
             <h4>@_Localize.ArchivedMessages</h4>
         </div>
-        <div id="messages-holder" class="deletable-item-holder" data-confirm-archive="@_Localize.ConfirmArchiveMessage" data-confirm-delete="@_Localize.ConfirmDeleteMessage">
+        <div id="messages-holder" class="deletable-item-holder" data-confirm-restore="@_Localize.ConfirmRestoreMessage" data-confirm-delete="@_Localize.ConfirmDeleteMessage">
             @foreach (var message in Model.Messages.Where(m => m.IsArchived).OrderBy(m => m.Order))
             {
                 <div class="message deletable-item">
@@ -24,6 +24,7 @@
                         .Replace(" ", "&nbsp;"))
                     </div>
                     <div class="commands">
+                        @Html.RouteLink(_Localize.Restore, "Message", new { action = "Restore", id = Model.BotID, messageID = message.MessageID }, new { @class = "restore" }) |
                         @Html.RouteLink(_Localize.Delete, "Message", new { action = "Delete", id = Model.BotID, messageID = message.MessageID }, new { @class = "delete" })
                     </div>
                 </div>
