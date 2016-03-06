@@ -302,7 +302,9 @@
     <Content Include="Content\images\no-image.png" />
     <Content Include="Content\images\spinner-48.gif" />
     <Content Include="Content\materialize.css" />
-    <Content Include="Content\materialize.min.css" />
+    <Content Include="Content\materialize.min.css">
+      <DependentUpon>materialize.css</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -313,20 +315,38 @@
       <LastGenOutput>AppSettings.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\angular.js" />
-    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\angular.min.js">
+      <DependentUpon>angular.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.form.js" />
-    <Content Include="Scripts\jquery.form.min.js" />
+    <Content Include="Scripts\jquery.form.min.js">
+      <DependentUpon>jquery.form.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\materialize.js" />
-    <Content Include="Scripts\materialize.min.js" />
-    <Content Include="Scripts\mybot-common.js" />
-    <Content Include="Views\Bot\change-enable.js" />
+    <Content Include="Scripts\materialize.min.js">
+      <DependentUpon>materialize.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\mybot-common.js">
+      <DependentUpon>mybot-common.ts</DependentUpon>
+    </Content>
+    <Content Include="Views\Bot\change-enable.js">
+      <DependentUpon>change-enable.ts</DependentUpon>
+    </Content>
     <Content Include="Views\Bot\Create.cshtml" />
-    <Content Include="Views\Bot\delete-item.js" />
+    <Content Include="Views\Bot\delete-item.js">
+      <DependentUpon>delete-item.ts</DependentUpon>
+    </Content>
     <Content Include="Views\Bot\Details.cshtml" />
-    <Content Include="Scripts\jquery.form.min.js.map" />
+    <Content Include="Scripts\jquery.form.min.js.map">
+      <DependentUpon>jquery.form.js</DependentUpon>
+    </Content>
     <Content Include="Views\Bot\Edit.cshtml" />
-    <Content Include="Views\Bot\messages.js" />
-    <Content Include="Views\ExtensionScript\extensionscript-form.js" />
+    <Content Include="Views\Bot\messages.js">
+      <DependentUpon>messages.ts</DependentUpon>
+    </Content>
+    <Content Include="Views\ExtensionScript\extensionscript-form.js">
+      <DependentUpon>extensionscript-form.ts</DependentUpon>
+    </Content>
     <Content Include="Views\Shared\EditorTemplates\TimeZone.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\TimeZone.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Time.cshtml" />
@@ -348,14 +368,28 @@
     <Content Include="Content\fonts\roboto\Roboto-Medium.ttf" />
     <Content Include="Content\fonts\roboto\Roboto-Regular.ttf" />
     <Content Include="Content\fonts\roboto\Roboto-Thin.ttf" />
-    <Content Include="Scripts\angular.min.js.map" />
-    <Content Include="Scripts\mybot-common.js.map" />
+    <Content Include="Scripts\angular.min.js.map">
+      <DependentUpon>angular.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\mybot-common.js.map">
+      <DependentUpon>mybot-common.ts</DependentUpon>
+    </Content>
     <Content Include="Views\Shared\_BotNameTitle.cshtml" />
-    <Content Include="Views\ExtensionScript\extensionscript-form.js.map" />
-    <Content Include="Views\Bot\change-enable.js.map" />
-    <Content Include="Views\Bot\delete-item.js.map" />
-    <Content Include="Views\Bot\messages.js.map" />
-    <Content Include="Views\Bot\tweet-as-the-bot.js.map" />
+    <Content Include="Views\ExtensionScript\extensionscript-form.js.map">
+      <DependentUpon>extensionscript-form.ts</DependentUpon>
+    </Content>
+    <Content Include="Views\Bot\change-enable.js.map">
+      <DependentUpon>change-enable.ts</DependentUpon>
+    </Content>
+    <Content Include="Views\Bot\delete-item.js.map">
+      <DependentUpon>delete-item.ts</DependentUpon>
+    </Content>
+    <Content Include="Views\Bot\messages.js.map">
+      <DependentUpon>messages.ts</DependentUpon>
+    </Content>
+    <Content Include="Views\Bot\tweet-as-the-bot.js.map">
+      <DependentUpon>tweet-as-the-bot.ts</DependentUpon>
+    </Content>
     <Content Include="Views\Bot\Archives.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
@@ -374,13 +408,21 @@
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\README_ENU.txt" />
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\msvcr90.dll" />
     <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js">
+      <DependentUpon>jquery-1.10.2.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.min.js">
+      <DependentUpon>jquery.validate.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js">
+      <DependentUpon>jquery.validate.unobtrusive.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\Bot\tweet-as-the-bot.js" />
+    <Content Include="Views\Bot\tweet-as-the-bot.js">
+      <DependentUpon>tweet-as-the-bot.ts</DependentUpon>
+    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -391,7 +433,9 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Scripts\jquery-1.10.2.min.map">
+      <DependentUpon>jquery-1.10.2.js</DependentUpon>
+    </Content>
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
