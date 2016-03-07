@@ -160,7 +160,7 @@ namespace myBot {
         }
         
         /// <summary>
-        ///   Are you sure to archiving this message? に類似しているローカライズされた文字列を検索します。
+        ///   Are you sure to archive this message? に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ConfirmArchiveMessage {
             get {
@@ -169,7 +169,7 @@ namespace myBot {
         }
         
         /// <summary>
-        ///   Are you sure to deleteing this bot master? に類似しているローカライズされた文字列を検索します。
+        ///   Are you sure to delete this bot master? に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ConfirmDeleteBotMaster {
             get {
@@ -178,11 +178,20 @@ namespace myBot {
         }
         
         /// <summary>
-        ///   Are you sure to deleting this message? に類似しているローカライズされた文字列を検索します。
+        ///   Are you sure to delete this message? に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ConfirmDeleteMessage {
             get {
                 return ResourceManager.GetString("ConfirmDeleteMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Are you sure to restore this message? に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConfirmRestoreMessage {
+            get {
+                return ResourceManager.GetString("ConfirmRestoreMessage", resourceCulture);
             }
         }
         
@@ -255,6 +264,15 @@ namespace myBot {
         public static string Minutes {
             get {
                 return ResourceManager.GetString("Minutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Restore に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Restore {
+            get {
+                return ResourceManager.GetString("Restore", resourceCulture);
             }
         }
         

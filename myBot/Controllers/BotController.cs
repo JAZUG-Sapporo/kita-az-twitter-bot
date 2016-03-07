@@ -59,6 +59,16 @@ namespace myBot.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (bool.Parse(AppSettings.Demo.Enabled))
+                {
+                    var authenticationManager = HttpContext.GetOwinContext().Authentication;
+                    var provider = authenticationManager.User.Claims.ValueOf(CustomClaimTypes.IdentityProvider);
+                    if (provider == "demo")
+                    {
+                        var twitterAuthOpt = JsonConvert.DeserializeObject<TwitterAuthenticationOptions>(AppSettings.Key.Twitter);
+                        return AuthBotCallbackCore(bot.BotID, twitterAuthOpt.ConsumerKey, twitterAuthOpt.ConsumerSecret);
+                    }
+                }
                 return new ChallengeResult(
                     provider: "Twitter",
                     redirectUri: Url.Action("AuthBotCallback", "Bot"),
@@ -80,6 +90,11 @@ namespace myBot.Controllers
             var accessToken = claims.ValueOf(CustomClaimTypes.Twitter.AccessToken);
             var accessTokenSecret = claims.ValueOf(CustomClaimTypes.Twitter.AccessTokenSecret);
 
+            return AuthBotCallbackCore(botID, accessToken, accessTokenSecret);
+        }
+
+        private ActionResult AuthBotCallbackCore(string botID, string accessToken, string accessTokenSecret)
+        {
             this.DB.Bots.Add(new Bot
             {
                 BotID = botID,
