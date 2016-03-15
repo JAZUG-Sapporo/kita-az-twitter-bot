@@ -137,33 +137,41 @@ namespace myBot.Controllers
             return new EmptyResult();
         }
 
+        enum Direction
+        {
+            Up,
+            Down
+        }
+
         [HttpPost]
         public Task<ActionResult> Up(string id, int messageID)
         {
-            return MoveUpOrDown(id, messageID, direction: -1);
+            return MoveUpOrDown(id, messageID, Direction.Up);
         }
 
         [HttpPost]
         public Task<ActionResult> Down(string id, int messageID)
         {
-            return MoveUpOrDown(id, messageID, direction: +1);
+            return MoveUpOrDown(id, messageID, Direction.Down);
         }
 
-        private async Task<ActionResult> MoveUpOrDown(string id, int messageID, int direction)
+        private async Task<ActionResult> MoveUpOrDown(string id, int messageID, Direction direction)
         {
             var bot = this.DB.Bots.GetById(this.User, id);
             if (bot == null) return HttpNotFound();
-            var messages = bot.Messages.ToArray();
-            var message = messages.FirstOrDefault(m => m.MessageID == messageID);
+
+            var orderedAvailableMessages = bot.Messages.Where(m => !m.IsArchived).OrderBy(m => m.Order).ToArray();
+            var message = orderedAvailableMessages.FirstOrDefault(m => m.MessageID == messageID);
             if (message == null) return HttpNotFound();
 
-            var orgOrder = message.Order;
-            var newOrder = message.Order + direction;
-            var messageToReplace = messages.FirstOrDefault(m => m.Order == newOrder);
+            var messageToReplace = direction == Direction.Up
+                ? orderedAvailableMessages.LastOrDefault(m => m.Order < message.Order)
+                : orderedAvailableMessages.FirstOrDefault(m => m.Order > message.Order);
             if (messageToReplace == null) return Json(new { moved = false });
 
-            message.Order = newOrder;
-            messageToReplace.Order = orgOrder;
+            var currentOrder = message.Order;
+            message.Order = messageToReplace.Order;
+            messageToReplace.Order = currentOrder;
             await this.DB.SaveChangesAsync();
 
             return Json(new { moved = true });
