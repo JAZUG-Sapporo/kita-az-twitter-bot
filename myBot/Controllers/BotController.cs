@@ -195,7 +195,7 @@ namespace myBot.Controllers
                 .Include("ExtensionScripts")
                 .Where(bot => bot.Enabled)
                 .Where(bot => bot.BotMasters.Any())
-                .Where(bot => bot.Messages.Any(m => !m.IsArchived) || bot.ExtensionScripts.Any())
+                .Where(bot => bot.GetAvailableMessages().Any() || bot.ExtensionScripts.Any())
                 .ToArray();
 
             const int BUFF = 2;
