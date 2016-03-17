@@ -34,9 +34,7 @@ namespace myBot.Controllers
             if (bot == null) return HttpNotFound();
             if (ModelState.IsValid)
             {
-                var nextOrder = bot.GetAvailableMessages()
-                    .DefaultIfEmpty(new Message())
-                    .Max(m => m.Order) + 1;
+                var nextOrder = bot.GetNextOrder();
                 bot.Messages.Add(new Message
                 {
                     Text = message.Text,
@@ -114,10 +112,7 @@ namespace myBot.Controllers
             var messageToRestore = messages.FirstOrDefault(m => m.MessageID == messageID);
             if (messageToRestore == null) return HttpNotFound();
 
-            var nextOrder = messages
-                .OfAvailable()
-                .DefaultIfEmpty(new Message())
-                .Max(m => m.Order) + 1;
+            var nextOrder = messages.GetNextOrder();
             messageToRestore.Order = nextOrder;
 
             messageToRestore.IsArchived = false;
