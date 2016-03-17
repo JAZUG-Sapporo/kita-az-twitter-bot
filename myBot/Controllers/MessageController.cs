@@ -92,6 +92,14 @@ namespace myBot.Controllers
 
             messageToArchive.IsArchived = true;
 
+            // Renumber 'Order' property
+            messages
+                .Where(m => !m.IsArchived)
+                .OrderBy(m => m.Order)
+                .Select((m, i) => new { Message = m, NewOrder = i + 1 })
+                .ToList()
+                .ForEach(a => a.Message.Order = a.NewOrder);
+
             await this.DB.SaveChangesAsync();
 
             return new EmptyResult();
@@ -123,14 +131,6 @@ namespace myBot.Controllers
             if (messageToDelete == null) return HttpNotFound();
 
             this.DB.Messages.Remove(messageToDelete);
-
-            // Renumber 'Order' property
-            messages
-                .Where(m => m.MessageID != messageToDelete.MessageID)
-                .OrderBy(m => m.Order)
-                .Select((m, i) => new { Message = m, NewOrder = i + 1 })
-                .ToList()
-                .ForEach(a => a.Message.Order = a.NewOrder);
 
             await this.DB.SaveChangesAsync();
 
