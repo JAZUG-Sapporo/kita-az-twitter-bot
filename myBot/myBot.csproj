@@ -255,6 +255,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Bot.cs" />
     <Compile Include="Models\BotMaster.cs" />
+    <Compile Include="Models\forScripting\BotWrapper.cs" />
+    <Compile Include="Models\forScripting\MessageWrapper.cs" />
     <Compile Include="Models\MessageJournal.cs" />
     <Compile Include="Models\ExtensionScript.cs" />
     <Compile Include="Models\Message.cs" />
@@ -488,7 +490,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53508</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
