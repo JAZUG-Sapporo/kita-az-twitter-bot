@@ -36,7 +36,7 @@
             </a>
         </div>
         <div id="messages-holder" class="deletable-item-holder" data-confirm-archive="@_Localize.ConfirmArchiveMessage">
-            @foreach (var message in Model.GetAvailableMessages().OrderBy(m => m.Order))
+            @foreach (var message in Model.Messages.Where(m => !m.IsArchived).OrderBy(m => m.Order))
             {
                 <div class="message deletable-item">
                     <div class="contents">

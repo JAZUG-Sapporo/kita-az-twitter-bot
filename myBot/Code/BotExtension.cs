@@ -37,32 +37,10 @@ namespace myBot
             } while (time <= endTimeUtc);
         }
 
-        public static IEnumerable<Message> GetAvailableMessages(this Bot bot)
-        {
-            return bot.Messages.OfAvailable();
-        }
-
-        public static IEnumerable<Message> OfAvailable(this IEnumerable<Message> messages)
-        {
-            return messages.Where(m => !m.IsArchived);
-        }
-
-        public static int GetNextOrder(this Bot bot)
-        {
-            return bot.Messages.GetNextOrder();
-        }
-
-        public static int GetNextOrder(this IEnumerable<Message> messages)
-        {
-            return messages
-                .OfAvailable()
-                .DefaultIfEmpty(new Message())
-                .Max(m => m.Order) + 1;
-        }
-
         public static Message GetMessageToNextTweet(this Bot bot)
         {
-            var messages = bot.GetAvailableMessages()
+            var messages = bot.Messages
+                .Where(m => !m.IsArchived)
                 .OrderBy(m => m.Order)
                 .ToArray();
 

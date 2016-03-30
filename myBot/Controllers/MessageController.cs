@@ -34,7 +34,9 @@ namespace myBot.Controllers
             if (bot == null) return HttpNotFound();
             if (ModelState.IsValid)
             {
-                var nextOrder = bot.GetNextOrder();
+                var nextOrder = bot.Messages
+                    .DefaultIfEmpty(new Message())
+                    .Max(m => m.Order) + 1;
                 bot.Messages.Add(new Message
                 {
                     Text = message.Text,
@@ -90,14 +92,6 @@ namespace myBot.Controllers
 
             messageToArchive.IsArchived = true;
 
-            // Renumber 'Order' property
-            messages
-                .OfAvailable()
-                .OrderBy(m => m.Order)
-                .Select((m, i) => new { Message = m, NewOrder = i + 1 })
-                .ToList()
-                .ForEach(a => a.Message.Order = a.NewOrder);
-
             await this.DB.SaveChangesAsync();
 
             return new EmptyResult();
@@ -111,9 +105,6 @@ namespace myBot.Controllers
             var messages = bot.Messages.ToList();
             var messageToRestore = messages.FirstOrDefault(m => m.MessageID == messageID);
             if (messageToRestore == null) return HttpNotFound();
-
-            var nextOrder = messages.GetNextOrder();
-            messageToRestore.Order = nextOrder;
 
             messageToRestore.IsArchived = false;
 
@@ -132,6 +123,14 @@ namespace myBot.Controllers
             if (messageToDelete == null) return HttpNotFound();
 
             this.DB.Messages.Remove(messageToDelete);
+
+            // Renumber 'Order' property
+            messages
+                .Where(m => m.MessageID != messageToDelete.MessageID)
+                .OrderBy(m => m.Order)
+                .Select((m, i) => new { Message = m, NewOrder = i + 1 })
+                .ToList()
+                .ForEach(a => a.Message.Order = a.NewOrder);
 
             await this.DB.SaveChangesAsync();
 
@@ -161,7 +160,7 @@ namespace myBot.Controllers
             var bot = this.DB.Bots.GetById(this.User, id);
             if (bot == null) return HttpNotFound();
 
-            var orderedAvailableMessages = bot.GetAvailableMessages().OrderBy(m => m.Order).ToArray();
+            var orderedAvailableMessages = bot.Messages.Where(m => !m.IsArchived).OrderBy(m => m.Order).ToArray();
             var message = orderedAvailableMessages.FirstOrDefault(m => m.MessageID == messageID);
             if (message == null) return HttpNotFound();
 
