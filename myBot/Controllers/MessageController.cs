@@ -90,7 +90,7 @@ namespace myBot.Controllers
             var messageToArchive = messages.FirstOrDefault(m => m.MessageID == messageID);
             if (messageToArchive == null) return HttpNotFound();
 
-            messageToArchive.IsArchived = true;
+            bot.ArchiveMessage(messageToArchive);
 
             await this.DB.SaveChangesAsync();
 
@@ -106,7 +106,7 @@ namespace myBot.Controllers
             var messageToRestore = messages.FirstOrDefault(m => m.MessageID == messageID);
             if (messageToRestore == null) return HttpNotFound();
 
-            messageToRestore.IsArchived = false;
+            bot.RestoreMessage(messageToRestore);
 
             await this.DB.SaveChangesAsync();
 

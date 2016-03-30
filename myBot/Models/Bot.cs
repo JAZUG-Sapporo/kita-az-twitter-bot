@@ -115,5 +115,26 @@ namespace myBot.Models
                 throw new Exception($"Unhandled exception when tweeting '{text}'", innerException: e);
             }
         }
+
+        /// <summary>
+        /// 引数に指定されたメッセージをアーカイブします。(拡張スクリプト中からも呼び出されることを想定しています)
+        /// </summary>
+        public void ArchiveMessage(Message messageToArchive)
+        {
+            messageToArchive.IsArchived = true;
+
+            if (this.MessageToNextTweet != null && this.MessageToNextTweet.MessageID == messageToArchive.MessageID)
+            {
+                this.MessageToNextTweet = this.GetMessageToNextTweet();
+            }
+        }
+
+        /// <summary>
+        /// 引数に指定されたメッセージをアーカイブから戻します。(拡張スクリプト中からも呼び出されることを想定しています)
+        /// </summary>
+        public void RestoreMessage(Message messageToRestore)
+        {
+            messageToRestore.IsArchived = false;
+        }
     }
 }

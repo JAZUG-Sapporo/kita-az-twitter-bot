@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Scripting.Hosting;
+using myBot.Models.forScripting;
 
 namespace myBot.Models
 {
@@ -67,7 +68,7 @@ namespace myBot.Models
             var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(bot.TimeZone);
             var localTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
 
-            scope.SetVariable("theBot", bot);
+            scope.SetVariable("theBot", new BotWrapper(bot));
             scope.SetVariable("localTime", localTime.ToString("yyyy/MM/dd HH:mm:ss"));
             
             engine.Execute(scriptText, scope);

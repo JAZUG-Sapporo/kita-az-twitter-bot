@@ -83,7 +83,7 @@ Free プランでの実行も可能です。
 
 プロパティ名と型               | 説明
 ----------------------------|-----
-Messages: List&lt;Message&gt; | コントロールパネル上で設定されている、このボットのツイートメッセージ群を取得します。型は CLR の List&lt;T&gt; になります。IronJint(JavaScript) から扱うには、List&lt;T&gt;.ToArray() メソッドで "配列" に変換しないと、`[0]` などといったインデクサによるアクセスができないため、扱いには少し注意が要ります。
+Messages: Message[] | コントロールパネル上で設定されている、このボットのツイートメッセージ群を配列で取得します。コントロールパネル上での表示順 (ツイート順) と同じ並び (すなわち、後述の Message.Order プロパティの昇順) に並べ替え済みです。
 MessageToNextTweet: Message | 拡張スクリプトの実行後に、ツイートされるメッセージを取得または設定します。このプロパティに、Messages プロパティに含まれる別のメッセージを設定すれば、次につぶやくメッセージを差し替えできます。また、このプロパティに null を設定すると、このツイートタイミングでのツイートはキャンセル(何も呟かない)されます。
 
 ##### メソッド
@@ -91,6 +91,8 @@ MessageToNextTweet: Message | 拡張スクリプトの実行後に、ツイー�
 メソッド名と型                | 説明
 --------------------------|-----
 Tweet(text: string): void | 引数に指定された文字列をツイートします。
+ArchiveMessage(message: Message): void | 引数に指定されたメッセージをアーカイブします。
+RestoreMessage(message: Message): void | 引数に指定されたメッセージをアーカイブから戻します。
 
 #### localTime オブジェクト
 
@@ -112,6 +114,7 @@ theBot オブジェクトの Messages プロパティや MessageToNextTweet プ�
 ----------------------------|-----
 Text: string         | ツイートする文言(テキスト)を取得または設定します。
 Order: number         | ツイート順を意味する数値を取得または設定します。定期ツイートは、この Order プロパティの値を昇順で並べ替えした順序で行われます。
+IsArchived: boolean         | このメッセージがアーカイブ済みか否かを取得します。このプロパティは読み取り専用です。メッセージをアーカイブしたりアーカイブから戻したりするには、tehBot オブジェクトの ArchiveMessage() メソッド並びに RestoreMessage() メソッドを使ってください。
 
 ----
 
@@ -153,7 +156,22 @@ theBot.Tweet('現在の時刻は '+ (new Date(localTime)).toTimeString()+' で�
 ```JavaScript
 // IronJint (JavaScript) での実装例
 if (localTime.substring(11) < '07:00:00') {
-    theBot.MessageToNextTweet = theBot.Messages.ToArray()[0];
+    theBot.MessageToNextTweet = theBot.Messages[0];
+}
+```
+
+### 指定の日時を過ぎたら、指定のハッシュタグを含むメッセージをアーカイブする
+
+```JavaScript
+// IronJint (JavaScript) での実装例
+var hashTag = '#foo';
+var tweetUntil = '2016/03/31 09:00:00'
+
+if (tweetUntil < localTime)
+{
+  theBot.Messages
+    .filter(function(msg){ return msg.Text.indexOf(hashTag) != -1;})
+    .forEach(function(msg){ theBot.ArchiveMessage(msg); });
 }
 ```
 
