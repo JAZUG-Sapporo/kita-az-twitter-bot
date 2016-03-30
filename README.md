@@ -83,7 +83,7 @@ Free プランでの実行も可能です。
 
 プロパティ名と型               | 説明
 ----------------------------|-----
-Messages: Message[]         | コントロールパネル上で設定されている、このボットのツイートメッセージを取得します。
+Messages: List&lt;Message&gt; | コントロールパネル上で設定されている、このボットのツイートメッセージ群を取得します。型は CLR の List&lt;T&gt; になります。IronJint(JavaScript) から扱うには、List&lt;T&gt;.ToArray() メソッドで "配列" に変換しないと、`[0]` などといったインデクサによるアクセスができないため、扱いには少し注意が要ります。
 MessageToNextTweet: Message | 拡張スクリプトの実行後に、ツイートされるメッセージを取得または設定します。このプロパティに、Messages プロパティに含まれる別のメッセージを設定すれば、次につぶやくメッセージを差し替えできます。また、このプロパティに null を設定すると、このツイートタイミングでのツイートはキャンセル(何も呟かない)されます。
 
 ##### メソッド
@@ -153,7 +153,7 @@ theBot.Tweet('現在の時刻は '+ (new Date(localTime)).toTimeString()+' で�
 ```JavaScript
 // IronJint (JavaScript) での実装例
 if (localTime.substring(11) < '07:00:00') {
-    theBot.MessageToNextTweet = theBot.Messages[0];
+    theBot.MessageToNextTweet = theBot.Messages.ToArray()[0];
 }
 ```
 
