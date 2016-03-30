@@ -123,7 +123,7 @@ namespace myBot.Models
         {
             messageToArchive.IsArchived = true;
 
-            if (this.MessageToNextTweet.MessageID == messageToArchive.MessageID)
+            if (this.MessageToNextTweet != null && this.MessageToNextTweet.MessageID == messageToArchive.MessageID)
             {
                 this.MessageToNextTweet = this.GetMessageToNextTweet();
             }
